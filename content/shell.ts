@@ -1,10 +1,12 @@
+import { business as profile } from "./business";
+
 export const business = {
-  name: "Ashtons Fast & Fur-ious",
-  phoneDisplay: "910-967-0205",
-  phoneTel: "+19109670205",
-  email: "info@ashtonsfastfurious.com",
-  hours: "7 AM to 7 PM",
-} as const;
+  name: profile.name,
+  phoneDisplay: profile.phoneDisplay,
+  phoneTel: profile.phoneE164,
+  email: profile.email,
+  hours: profile.hours.display,
+};
 
 export const navItems = [
   { label: "Service", href: "/mobile-dog-treadmill/" },
