@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { priceRange } from "../../content/seo";
 import { business, footerTowns, legalLinks } from "../../content/shell";
 
 export function SiteFooter() {
@@ -17,6 +18,7 @@ export function SiteFooter() {
           </a>
         </p>
         <p className="m-0">{business.hours}</p>
+        <p className="m-0">{priceRange}</p>
         <nav aria-label="Service areas">
           <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
             {footerTowns.map((town) => (

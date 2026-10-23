@@ -36,13 +36,3 @@ export const legalLinks = [
   { label: "Privacy", href: "/privacy/" },
   { label: "Terms", href: "/terms/" },
 ] as const;
-
-export const home = {
-  h1: "Mobile Dog Treadmill Workouts in Jacksonville, NC",
-} as const;
-
-export const metadataCopy = {
-  title: "Mobile Dog Treadmill in Jacksonville NC | Ashtons",
-  description:
-    "Climate controlled mobile dog treadmill sessions in your driveway in Jacksonville, Richlands and Beulaville NC. 30 min from $60. First session free.",
-} as const;
