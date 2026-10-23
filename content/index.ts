@@ -1,3 +1,4 @@
+import { booking } from "./booking";
 import { business } from "./business";
 import { equipmentType, faqs } from "./faqs";
 import { home } from "./home";
@@ -8,6 +9,7 @@ import { stats } from "./stats";
 import { hubOnlyTowns, towns } from "./towns";
 
 export const content = {
+  booking,
   business,
   pricing,
   towns,
