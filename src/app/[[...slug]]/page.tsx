@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { HomeTop } from "@/components/home/home-top";
 import { JsonLd } from "@/components/json-ld";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
@@ -35,7 +36,7 @@ export default async function Page({ params }: PageParams) {
   return (
     <>
       <JsonLd path={path} />
-      <SeoPage path={path} />
+      {path === "/" ? <HomeTop /> : <SeoPage path={path} />}
     </>
   );
 }

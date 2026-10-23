@@ -1,5 +1,6 @@
 import { business } from "./business";
 import { equipmentType, faqs } from "./faqs";
+import { home } from "./home";
 import { pricing } from "./pricing";
 import { reviews } from "./reviews";
 import { businessDescription, pages, postalCode, priceRange } from "./seo";
@@ -19,4 +20,5 @@ export const content = {
   postalCode,
   priceRange,
   businessDescription,
+  home,
 };
