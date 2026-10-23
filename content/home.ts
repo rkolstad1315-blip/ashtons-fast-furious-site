@@ -1,6 +1,7 @@
 import { business } from "./business";
 import { getPage } from "./seo";
 import { book } from "./shell";
+import { towns } from "./towns";
 
 export type HomeImage = {
   src: string;
@@ -31,6 +32,15 @@ if (heroH1 !== getPage("/").h1) {
 }
 
 const dash = /[\u2013\u2014]/;
+
+const serviceAreaMapLabel =
+  "Simplified map of Onslow and Duplin counties with Jacksonville, Richlands, and Beulaville.";
+
+for (const town of towns) {
+  if (!serviceAreaMapLabel.includes(town.displayName) || !serviceAreaMapLabel.includes(town.county)) {
+    throw new Error(`Service area map label is missing ${town.displayName}, ${town.county}.`);
+  }
+}
 
 export const home = {
   hero: {
@@ -170,6 +180,38 @@ export const home = {
       body: string;
       image: HomeImage;
     }>,
+  },
+  pricingPreview: {
+    heading: "Pricing",
+    linkLabel: "See all prices",
+    linkHref: "/pricing/",
+    mostPopular: "Most popular",
+    freeTitle: "Free first session",
+    freePrice: "Free",
+    minuteSession: "minute session",
+    membershipTitle: "Monthly membership",
+    sessionsAMonth: "sessions a month",
+  },
+  reviewsPreview: {
+    heading: "Reviews",
+    googleLinkLabel: "Read all reviews on Google",
+  },
+  faqPreview: {
+    heading: "Common questions",
+    linkLabel: "See all questions",
+    linkHref: "/faq/",
+    questionIds: ["safe", "how-long", "will-my-dog-like-it", "what-it-costs"] as const,
+  },
+  serviceArea: {
+    heading: "Service area",
+    mapLabel: serviceAreaMapLabel,
+    alsoServing: "Also serving on request",
+  },
+  bookingTeaser: {
+    heading: "Book your dog's free first session",
+    body: "We bring the climate controlled unit to your driveway.",
+    buttonLabel: "Book a free first session",
+    buttonHref: book.href,
   },
 };
 
