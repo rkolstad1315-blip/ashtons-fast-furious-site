@@ -2,6 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { book, business, menuLabel, navItems } from "../../content/shell";
 
+function NavLinks() {
+  return (
+    <>
+      {navItems.map((item) => (
+        <li key={item.href}>
+          <Link
+            href={item.href}
+            className="inline-flex min-h-11 items-center font-semibold text-navy no-underline hover:text-brand"
+          >
+            {item.label}
+          </Link>
+        </li>
+      ))}
+      <li>
+        <Link
+          href={book.href}
+          className="inline-flex min-h-11 items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline"
+        >
+          {book.label}
+        </Link>
+      </li>
+    </>
+  );
+}
+
 export function SiteHeader() {
   return (
     <header className="relative z-20 border-b border-slate-200 bg-white">
@@ -16,29 +41,16 @@ export function SiteHeader() {
           />
         </Link>
         <nav className="site-nav" aria-label="Main">
-          <details>
+          {/* Closed <details> content cannot be forced visible in every browser, so desktop gets its own list. */}
+          <details className="md:hidden">
             <summary className="menu-button">{menuLabel}</summary>
             <ul>
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="inline-flex min-h-11 items-center font-semibold text-navy no-underline hover:text-brand"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href={book.href}
-                  className="inline-flex min-h-11 items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline"
-                >
-                  {book.label}
-                </Link>
-              </li>
+              <NavLinks />
             </ul>
           </details>
+          <ul className="hidden items-center gap-6 md:flex">
+            <NavLinks />
+          </ul>
         </nav>
       </div>
     </header>

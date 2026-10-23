@@ -34,3 +34,6 @@ export function reviewsNewestFirst(list: readonly Review[]): Review[] {
 
 assertNoDash(reviewsPage, "reviews page copy");
 assertNoDash(reviews, "reviews");
+
+// Profile link for "Read all reviews on Google". Hidden while this is still a placeholder.
+export const googleProfileUrl: string = "[GOOGLE PROFILE URL]";
