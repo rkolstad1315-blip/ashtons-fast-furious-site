@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { HomeTop } from "@/components/home/home-top";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
 import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
@@ -30,6 +31,9 @@ export default async function Page({ params }: PageParams) {
   const path = pathFromSlug(slug);
   if (!isPagePath(path)) {
     notFound();
+  }
+  if (path === "/") {
+    return <HomeTop />;
   }
   return <SeoPage path={path} />;
 }

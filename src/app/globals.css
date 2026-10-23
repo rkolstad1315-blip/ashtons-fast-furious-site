@@ -131,6 +131,127 @@ summary:focus-visible {
   }
 }
 
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  overflow: clip;
+  min-height: 26rem;
+  background: var(--color-navy);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgb(11 18 32 / 0.55) 0%,
+    rgb(11 18 32 / 0.82) 46%,
+    rgb(11 18 32 / 0.94) 100%
+  );
+}
+
+.hero-line {
+  display: block;
+  transform-origin: left center;
+  opacity: 1;
+  transform: none;
+}
+
+/*
+  Kinetic headline. 500 ms from the first line delay to the last line end.
+  The stretch on X is the speed blur. Transform and opacity only.
+  The delay lets the first paint happen before the motion starts.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .hero-line {
+    animation-name: hero-line-in;
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.16, 0.84, 0.28, 1);
+    animation-fill-mode: both;
+    animation-delay: 40ms;
+  }
+
+  .hero-line:nth-child(2) {
+    animation-duration: 340ms;
+    animation-delay: 160ms;
+  }
+}
+
+@keyframes hero-line-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-1.5rem, 0, 0) scaleX(1.22);
+  }
+
+  58% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scaleX(1.06);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scaleX(1);
+  }
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.tile-photo {
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: var(--tile-ratio);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 40rem;
+  }
+
+  .bento {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      "energy energy reactive heat"
+      "energy energy weight military"
+      "senior senior senior senior";
+  }
+
+  .bento-energy {
+    grid-area: energy;
+  }
+
+  .bento-reactive {
+    grid-area: reactive;
+  }
+
+  .bento-heat {
+    grid-area: heat;
+  }
+
+  .bento-weight {
+    grid-area: weight;
+  }
+
+  .bento-military {
+    grid-area: military;
+  }
+
+  .bento-senior {
+    grid-area: senior;
+  }
+
+  .bento-energy .tile-photo,
+  .bento-senior .tile-photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -139,5 +260,11 @@ summary:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .hero-line {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
   }
 }

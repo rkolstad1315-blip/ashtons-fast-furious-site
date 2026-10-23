@@ -8,6 +8,11 @@ const withBundleAnalyzer = withBundleAnalyzerInit({
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  images: {
+    // Hero srcset widths from ticket 04. imageSizes stay below the smallest device size.
+    deviceSizes: [375, 768, 1280],
+    imageSizes: [32, 48, 64, 96, 128, 256],
+  },
   async redirects() {
     return [
       {
