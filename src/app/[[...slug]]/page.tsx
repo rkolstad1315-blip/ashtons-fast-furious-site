@@ -8,9 +8,12 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  // Ticket 10 owns /service-areas/ and /service-areas/[town]/.
+  return pages
+    .filter((page) => !page.path.startsWith("/service-areas/"))
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {

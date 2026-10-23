@@ -77,7 +77,7 @@ function serviceNode(): JsonLdBlock {
   };
 }
 
-function breadcrumbNode(path: PagePath): JsonLdBlock {
+export function breadcrumbJsonLd(path: PagePath): JsonLdBlock {
   const page = getPage(path);
   return {
     "@context": "https://schema.org",
@@ -94,7 +94,7 @@ function breadcrumbNode(path: PagePath): JsonLdBlock {
 export function jsonLdFor(path: PagePath): JsonLdBlock[] {
   const blocks = [localBusiness()];
   if (path !== "/") {
-    blocks.push(breadcrumbNode(path));
+    blocks.push(breadcrumbJsonLd(path));
   }
   if (path === "/mobile-dog-treadmill/") {
     blocks.push(serviceNode());
