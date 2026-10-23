@@ -8,9 +8,12 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  // /pricing/ is its own route so the price builder stays off the other pages.
+  return pages
+    .filter((page) => page.path !== "/pricing/")
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {
