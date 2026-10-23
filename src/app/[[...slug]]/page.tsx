@@ -8,9 +8,12 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  return pages
+    // This URL is a real route, so its client code stays off the other pages.
+    .filter((page) => page.path !== "/mobile-dog-treadmill/")
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {
