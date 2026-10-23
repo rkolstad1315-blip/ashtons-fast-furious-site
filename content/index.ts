@@ -5,6 +5,7 @@ import { home } from "./home";
 import { pricing } from "./pricing";
 import { googleProfileUrl, reviews } from "./reviews";
 import { businessDescription, pages, postalCode, priceRange } from "./seo";
+import { service } from "./service";
 import { stats } from "./stats";
 import { hubOnlyTowns, towns } from "./towns";
 
@@ -24,4 +25,5 @@ export const content = {
   priceRange,
   businessDescription,
   home,
+  service,
 };

@@ -9,10 +9,12 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 
 export const dynamicParams = false;
 
+// These URLs are real routes, so their client code stays off the other pages.
+const dedicatedPaths = new Set<string>(["/book/", "/pricing/", "/mobile-dog-treadmill/"]);
+
 export function generateStaticParams() {
-  // /book/ and /pricing/ are their own routes so their client code stays off the other pages.
   return pages
-    .filter((page) => page.path !== "/book/" && page.path !== "/pricing/")
+    .filter((page) => !dedicatedPaths.has(page.path))
     .map((page) => ({
       slug: page.path.split("/").filter(Boolean),
     }));
