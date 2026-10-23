@@ -1,1 +1,1 @@
-# ashtons-fast-furious-site
+Ashtons Fast & Fur-ious website rebuild. Spec and tickets in /docs.
