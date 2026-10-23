@@ -7,10 +7,20 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 
 export const dynamicParams = false;
 
+// Ticket 11 owns these URLs in their own route files.
+const dedicatedPaths = new Set<string>([
+  "/about/",
+  "/reviews/",
+  "/book/",
+  "/military-families/",
+]);
+
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  return pages
+    .filter((page) => !dedicatedPaths.has(page.path))
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {

@@ -8,8 +8,8 @@ export const schemaTelephone = `+1-${business.phoneDisplay}`;
 export const ogImagePath = business.logoPath;
 export const contentUpdated = "2026-10-23";
 
-// Off until the military discount is enabled or on-base access is confirmed.
-export const militaryFamiliesEnabled = false;
+// Off unless MILITARY_PAGE_ENABLED is exactly "true" at build time.
+export const militaryFamiliesEnabled = process.env.MILITARY_PAGE_ENABLED === "true";
 
 const thirtyMinute = pricing.sessions.find((session) => session.minutes === 30);
 
