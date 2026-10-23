@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { BookPage } from "@/components/booking/book-page";
 import { JsonLd } from "@/components/json-ld";
+import { BookPage } from "@/components/pages/book-page";
 import { pageMetadata } from "@/lib/metadata";
 
-export function generateMetadata(): Metadata {
-  return pageMetadata("/book/");
-}
+export const metadata: Metadata = pageMetadata("/book/");
 
 export default function Page() {
   return (

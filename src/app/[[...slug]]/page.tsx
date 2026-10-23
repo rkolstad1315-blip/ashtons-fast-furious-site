@@ -12,8 +12,15 @@ import { isPagePath, pages, pathFromSlug, type PagePath } from "../../../content
 
 export const dynamicParams = false;
 
-// These URLs are real routes, so their client code stays off the other pages.
-const dedicatedPaths = new Set<string>(["/book/", "/pricing/", "/mobile-dog-treadmill/"]);
+// These URLs are real routes, so they are left out of the catch-all page.
+const dedicatedPaths = new Set<string>([
+  "/about/",
+  "/reviews/",
+  "/book/",
+  "/military-families/",
+  "/pricing/",
+  "/mobile-dog-treadmill/",
+]);
 
 export function generateStaticParams() {
   return pages
