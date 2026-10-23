@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
 import { notFound } from "next/navigation";
 import { MilitaryPage } from "@/components/pages/military-page";
 import { pageMetadata } from "@/lib/metadata";
@@ -20,5 +21,10 @@ export default function Page() {
     notFound();
   }
 
-  return <MilitaryPage />;
+  return (
+    <>
+      <JsonLd path="/military-families/" />
+      <MilitaryPage />
+    </>
+  );
 }
