@@ -36,6 +36,11 @@ export const faqs: readonly Faq[] = [
     answer: "We learn that on a short intro at the first visit. We never force a dog to keep running.",
   },
   {
+    id: "what-it-costs",
+    question: "What does it cost?",
+    answer: "A 30 minute session is $60, and the first session is free.",
+  },
+  {
     id: "breeds",
     question: "Which breeds can use the treadmill?",
     answer:
