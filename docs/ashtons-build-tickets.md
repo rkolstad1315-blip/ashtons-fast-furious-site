@@ -2,7 +2,7 @@
 
 ## Workflow and ticket order
 
-The build runs as 14 tickets. Each ticket is built in Cursor on its own branch, checked by Claude against its QA block, fixed, then merged to main and auto deployed to a Vercel preview. Every prompt below is a complete copy and paste block.
+The build runs as 14 tickets, plus ticket 15 (blog) after launch. Each ticket is built in Cursor on its own branch, checked by Claude against its QA block, fixed, then merged to main and auto deployed to a Vercel preview. Every prompt below is a complete copy and paste block.
 
 1. Paste the ticket's **Cursor prompt** into Cursor (Agent mode) at the repo root.
 2. Cursor builds, runs the build and lint, and commits on branch `ticket/NN-name`.
@@ -26,6 +26,7 @@ The build runs as 14 tickets. Each ticket is built in Cursor on its own branch, 
 | 12 | Premium polish | 04 to 11 | Reduced motion respected; CLS stays under 0.02 |
 | 13 | Performance pass | 12 | Every page meets the mobile budget |
 | 14 | Launch | 13, owner answers | Redirects live; Search Console and GBP linked |
+| 15 | Blog (after launch) | 14, first posts written | No placeholder or draft post is published; posts meet the mobile budget |
 
 Tickets 05 to 11 can run in parallel once 04 is merged, as long as each stays on its own branch.
 
@@ -546,3 +547,45 @@ End with LAUNCH APPROVED or BLOCKED and the exact blockers.
 ```
 
 **After launch (Richard):** submit the sitemap in Search Console, link the website on the Google Business Profile, submit citations, start the review request flow, and check rankings and the map pack at 30, 60, and 90 days.
+
+## Ticket 15: Blog (after launch)
+
+Start this ticket only after launch, and only once the first four posts are written and the owner has agreed to about one new post a month. A blog with two old posts looks abandoned. Post outlines are in `docs/ashtons-blog-outlines.md`.
+
+**Cursor prompt**
+
+```text
+Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service (climate controlled unit with two dog treadmills that parks in the customer's driveway) serving Jacksonville, Richlands, and Beulaville, North Carolina. Phone 910-967-0205. Price $60 per 30 minutes; first session free. The site has passed tickets 01 to 14 and is live.
+Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel. Copy reads from /content. Metadata helper and JSON-LD component from ticket 03. Read the MDX guide in node_modules/next/dist/docs/ before choosing how to load Markdown.
+House rules: mobile first; PageSpeed mobile 95 or higher, LCP under 2.5 s, CLS under 0.1, first load JS under 100 KB gzipped; no new client JavaScript; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics; one H1 per page; all copy lives in /content.
+
+Ticket 15: add a blog.
+1. Posts are Markdown files in /content/blog/, one per post, with typed frontmatter: title, description, slug, publishedAt, updatedAt, author, primaryKeyword, relatedFaqIds, draft (boolean). Parse them on the server at build time; every blog route is prerendered static HTML with no client component.
+2. Build time validation that fails the build: title under 60 characters, description under 155, unique slugs, no em dash or en dash in any title, description, or body, and no H1 inside a post body (the page renders the H1 from the title). In production builds, leave out any post with draft true or any [BRACKETED] placeholder in its frontmatter or body. Log which posts were left out and why.
+3. /blog/: title "Dog Exercise Tips for Jacksonville NC | Ashtons", H1 "Dog Exercise Tips from Ashtons", a short intro from /content, and post cards (title, description, published date) newest first. While no post is publishable, return 404 and leave /blog/ out of the sitemap and the footer.
+4. /blog/[slug]/: H1 is the post title; visible published date and, when different, updated date; the body with H2 and H3 only and no skipped levels; one closing call to action with the accent Book button linking to /book/ and the call or text tel: link; up to two related posts. Images use next/image with explicit width and height and alt text; all post images are lazy except the first image when it sits above the fold.
+5. Every post must link to /book/ and to at least one of /mobile-dog-treadmill/, /safety/, /faq/, or a town page. Fail the build when a post has neither.
+6. Metadata through the ticket 03 helper: self referencing canonical on the www host, Open Graph type article with published and modified times. JSON-LD: BlogPosting with headline, description, datePublished, dateModified, author, image, mainEntityOfPage, and publisher pointing to https://www.ashtonsfastfurious.com/#business; BreadcrumbList Home, Blog, post. No AggregateRating or Review markup.
+7. Add /blog/ and every published post to app/sitemap.ts, with lastmod set to updatedAt.
+8. Links: add Blog to the footer. Do not add it to the header nav, which stays at six items or fewer. On /faq/, an answer whose id is in a post's relatedFaqIds gets a "Read more" link to that post.
+9. Add one sample post with draft true so the pipeline is tested without publishing it.
+Run build and lint. Commit on branch ticket/15-blog.
+```
+
+**Claude QA prompt**
+
+```text
+You are QA for the Ashtons Fast & Fur-ious website (Next.js App Router, TypeScript, Tailwind, Vercel; mobile dog treadmill service in Jacksonville, Richlands, and Beulaville NC). Review branch ticket/15-blog against main. Run npm run build and npm run lint, start the production server, fetch /blog/ and every post, and run Lighthouse mobile on /blog/ and the longest post. Report each check as PASS or FAIL with evidence. Do not change any code.
+Checks:
+1. Build and lint pass; /blog/ and every post are listed as static in the build output; no blog route ships a client component.
+2. Lighthouse mobile 95 or higher on /blog/ and the longest post; LCP under 2.5 s; CLS under 0.1.
+3. No draft post and no post containing a [BRACKETED] placeholder appears on /blog/, at its URL, or in the sitemap. Temporarily add a placeholder to a published post, rebuild, confirm it drops out, then revert.
+4. Each post has one H1 equal to its title, no skipped heading levels, a title under 60 characters, a description under 155, and a self referencing www canonical.
+5. BlogPosting JSON-LD parses, has datePublished and dateModified matching the visible dates, and its publisher @id is https://www.ashtonsfastfurious.com/#business; BreadcrumbList is Home, Blog, post; no AggregateRating or Review markup.
+6. Every post links to /book/ and to at least one service, safety, FAQ, or town page.
+7. /sitemap.xml lists /blog/ and each published post with lastmod equal to updatedAt.
+8. Blog appears in the footer and not in the header nav; header nav still has six items or fewer.
+9. No statistic, health claim, or temperature figure in a post appears without either a confirmed owner fact or a linked source; quote any that do not.
+10. No em dashes or en dashes in visible copy; no post claims the dog sets the pace or that the treadmill has no motor.
+End with READY TO MERGE or NEEDS FIXES.
+```
