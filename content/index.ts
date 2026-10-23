@@ -10,6 +10,7 @@ import { notFoundPage } from "./not-found";
 import { pricing } from "./pricing";
 import { googleProfileUrl, reviews, reviewsPage } from "./reviews";
 import { businessDescription, pages, postalCode, priceRange } from "./seo";
+import { service } from "./service";
 import { stats } from "./stats";
 import { hubOnlyTowns, towns } from "./towns";
 
@@ -36,4 +37,5 @@ export const content = {
   terms,
   militaryPage,
   notFoundPage,
+  service,
 };
