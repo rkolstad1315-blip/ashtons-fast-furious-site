@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { home } from "../../../content/home";
@@ -26,10 +27,11 @@ export function HeroSection() {
           id="home-hero-heading"
           className="m-0 mt-4 max-w-4xl font-display text-[2.15rem] font-extrabold italic leading-[0.92] text-white sm:text-6xl md:text-7xl"
         >
-          {hero.lines.map((line) => (
-            <span key={line} className="hero-line">
-              {line}
-            </span>
+          {hero.lines.map((line, index) => (
+            <Fragment key={line}>
+              {index > 0 ? <span className="sr-only"> </span> : null}
+              <span className={`hero-line hero-line-${index + 1}`}>{line}</span>
+            </Fragment>
           ))}
         </h1>
         <p className="m-0 mt-4 max-w-xl text-lg leading-snug text-white">{hero.subhead}</p>

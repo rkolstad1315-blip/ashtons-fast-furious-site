@@ -174,7 +174,7 @@ summary:focus-visible {
     animation-delay: 40ms;
   }
 
-  .hero-line:nth-child(2) {
+  .hero-line-2 {
     animation-duration: 340ms;
     animation-delay: 160ms;
   }

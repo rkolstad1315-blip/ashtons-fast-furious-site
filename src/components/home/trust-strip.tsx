@@ -1,10 +1,14 @@
 import { business } from "../../../content/business";
 import { home } from "../../../content/home";
 import { shouldShowStats, stats } from "../../../content/stats";
-import { StatCounter } from "./stat-counter";
 import { TrustIcon } from "./trust-icons";
 
-export function TrustStrip() {
+async function loadStatCounter() {
+  const { StatCounter } = await import("./stat-counter");
+  return StatCounter;
+}
+
+export async function TrustStrip() {
   const items = home.trust.items.filter((item) => {
     if ("whenInsured" in item && item.whenInsured) {
       return business.insuredConfirmed;
@@ -13,6 +17,7 @@ export function TrustStrip() {
   });
   const showStats =
     shouldShowStats(stats) && stats.sessionsRun !== null && stats.dogsServed !== null;
+  const StatCounter = showStats ? await loadStatCounter() : null;
 
   return (
     <section className="bg-slate-100" aria-labelledby="trust-heading">
@@ -28,7 +33,7 @@ export function TrustStrip() {
             </li>
           ))}
         </ul>
-        {showStats ? (
+        {StatCounter && stats.sessionsRun !== null && stats.dogsServed !== null ? (
           <StatCounter
             sessionsRun={stats.sessionsRun}
             dogsServed={stats.dogsServed}

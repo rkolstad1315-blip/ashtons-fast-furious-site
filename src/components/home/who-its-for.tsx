@@ -34,6 +34,7 @@ export function WhoItsFor() {
                     width={tile.image.width}
                     height={tile.image.height}
                     loading="lazy"
+                    fetchPriority="low"
                     sizes={tileSizes(tile.id)}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
