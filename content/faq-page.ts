@@ -10,9 +10,9 @@ export type FaqGroupDef = {
   ids: readonly string[];
 };
 
-// how-long is the only confirmed answer that states the price, so it sits
-// under Cost and policies. Weather, payment, and cancellation answers stay
-// grouped and are omitted while they are still placeholders.
+// what-it-costs and how-long are the confirmed answers that state the price,
+// so they sit under Cost and policies. Weather, payment, and cancellation
+// answers stay grouped and are omitted while they are still placeholders.
 export const faqGroupDefs = [
   {
     id: "safety",
@@ -39,7 +39,7 @@ export const faqGroupDefs = [
   {
     id: "cost",
     heading: "Cost and policies",
-    ids: ["how-long", "payment", "cancellation"],
+    ids: ["what-it-costs", "how-long", "payment", "cancellation"],
   },
 ] as const satisfies readonly FaqGroupDef[];
 
