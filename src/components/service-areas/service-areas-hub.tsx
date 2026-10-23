@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ServiceAreaMap } from "@/components/service-area-map";
+import { CountyMap } from "@/components/county-map";
 import { JsonLd } from "@/components/json-ld";
+import { home } from "../../../content/home";
 import { getPage } from "../../../content/seo";
 import { towns } from "../../../content/towns";
 import {
@@ -24,9 +25,7 @@ export function ServiceAreasHub() {
         {page.h1}
       </h1>
       <p className="m-0 mt-4 max-w-2xl text-lg text-slate-700">{hubCountyBlurb(towns)}</p>
-      <div className="mt-8">
-        <ServiceAreaMap />
-      </div>
+      <CountyMap label={home.serviceArea.mapLabel} className="mt-8" />
       <ul className="m-0 mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-3">
         {towns.map((town) => (
           <li key={town.slug}>

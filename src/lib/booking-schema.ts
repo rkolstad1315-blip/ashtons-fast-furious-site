@@ -153,5 +153,7 @@ export function parseTown(value: string | null | undefined): BookingTown | null 
   if (!value) {
     return null;
   }
-  return bookingTowns.find((town) => town.toLowerCase() === value.trim().toLowerCase()) ?? null;
+  // Town pages link with their slug, for example richlands-nc.
+  const name = value.trim().toLowerCase().replace(/-nc$/, "");
+  return bookingTowns.find((town) => town.toLowerCase() === name) ?? null;
 }
