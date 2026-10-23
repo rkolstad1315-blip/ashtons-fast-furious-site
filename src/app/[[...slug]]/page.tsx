@@ -8,9 +8,11 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  return pages
+    .filter((page) => page.path !== "/book/")
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {

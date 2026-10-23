@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { JsonLd } from "@/components/json-ld";
+import { ContactAnalytics } from "@/components/contact-analytics";
 import { MobileBar } from "@/components/mobile-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -53,6 +55,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <main>{children}</main>
         <SiteFooter />
         <MobileBar />
+        <ContactAnalytics />
+        <Analytics />
       </body>
     </html>
   );
