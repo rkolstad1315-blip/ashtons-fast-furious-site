@@ -27,24 +27,15 @@ function formatReviewDate(date: string): string {
   }).format(new Date(parsed));
 }
 
-function GoogleReviewButton() {
-  const label = reviewsPage.googleReviewLabel;
-  const href = confirmedExternalUrl(reviewsPage.googleReviewUrl);
-  const className =
-    "inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-brand px-6 text-center text-lg font-bold text-white no-underline sm:w-auto";
-
-  if (!href) {
-    return (
-      <a id="leave-a-review" className={className} href="#leave-a-review">
-        {label}
-      </a>
-    );
-  }
-
+function GoogleReviewButton({ href }: { href: string }) {
   return (
-    <a className={className} href={href} rel="noopener noreferrer" target="_blank">
-      {label}
-      <span className="sr-only"> (opens in a new tab)</span>
+    <a
+      className="inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-brand px-6 text-center text-lg font-bold text-white no-underline sm:w-auto"
+      href={href}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      {reviewsPage.googleReviewLabel}
     </a>
   );
 }
@@ -53,6 +44,8 @@ export function ReviewsPage() {
   const page = getPage("/reviews/");
   const cards = visibleReviews(reviews);
   const invite = confirmedCopy(reviewsPage.emptyInvite);
+  // The button has nowhere to go until the Google review link is confirmed.
+  const reviewHref = confirmedExternalUrl(reviewsPage.googleReviewUrl);
 
   return (
     <PageFrame>
@@ -76,9 +69,11 @@ export function ReviewsPage() {
           ))}
         </ul>
       )}
-      <p className="m-0 mt-8">
-        <GoogleReviewButton />
-      </p>
+      {reviewHref ? (
+        <p className="m-0 mt-8">
+          <GoogleReviewButton href={reviewHref} />
+        </p>
+      ) : null}
     </PageFrame>
   );
 }

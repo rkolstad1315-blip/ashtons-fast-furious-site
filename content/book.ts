@@ -1,3 +1,4 @@
+import { booking } from "./booking";
 import { business } from "./business";
 import { assertNoDash } from "./copy-rules";
 
@@ -11,7 +12,7 @@ export type BookPageContent = {
 };
 
 export const bookPage: BookPageContent = {
-  responseTimeLine: "We reply within [RESPONSE TIME].",
+  responseTimeLine: `We reply within ${booking.responseTime}.`,
   phoneHeading: "Call or text",
   callLabel: `Call ${business.phoneDisplay}`,
   textLabel: `Text ${business.phoneDisplay}`,
