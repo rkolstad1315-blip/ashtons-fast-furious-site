@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DaycareAlternativePage } from "@/components/daycare-page";
+import { FaqPage } from "@/components/faq-page";
 import { HomeTop } from "@/components/home/home-top";
+import { SafetyPage } from "@/components/safety-page";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
 import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
@@ -34,6 +37,15 @@ export default async function Page({ params }: PageParams) {
   }
   if (path === "/") {
     return <HomeTop />;
+  }
+  if (path === "/faq/") {
+    return <FaqPage />;
+  }
+  if (path === "/safety/") {
+    return <SafetyPage />;
+  }
+  if (path === "/dog-daycare-alternative/") {
+    return <DaycareAlternativePage />;
   }
   return <SeoPage path={path} />;
 }
