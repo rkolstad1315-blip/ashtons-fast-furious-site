@@ -10,8 +10,9 @@ import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
+  // /book/ and /pricing/ are their own routes so their client code stays off the other pages.
   return pages
-    .filter((page) => page.path !== "/book/")
+    .filter((page) => page.path !== "/book/" && page.path !== "/pricing/")
     .map((page) => ({
       slug: page.path.split("/").filter(Boolean),
     }));
