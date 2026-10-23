@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { HomeBottom } from "@/components/home/home-bottom";
 import { HomeTop } from "@/components/home/home-top";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
@@ -33,7 +34,12 @@ export default async function Page({ params }: PageParams) {
     notFound();
   }
   if (path === "/") {
-    return <HomeTop />;
+    return (
+      <>
+        <HomeTop />
+        <HomeBottom />
+      </>
+    );
   }
   return <SeoPage path={path} />;
 }

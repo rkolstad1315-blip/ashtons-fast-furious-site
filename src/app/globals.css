@@ -252,6 +252,130 @@ summary:focus-visible {
   }
 }
 
+.faq-preview summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  padding: 0.875rem 0;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+}
+
+.faq-preview summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-preview summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.faq-preview details[open] summary::after {
+  content: "\00d7";
+}
+
+.faq-preview details {
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.faq-preview details p {
+  margin: 0;
+  max-width: 42rem;
+  padding: 0 2rem 1rem 0;
+  color: var(--color-slate-700);
+}
+
+.service-map {
+  font-family: var(--font-body), sans-serif;
+}
+
+.service-map .county {
+  fill: var(--color-white);
+  stroke: var(--color-navy);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.map-pin {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.town-link {
+  position: absolute;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--color-navy);
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+.town-link-below {
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  transform: translate(-50%, -7px);
+}
+
+.town-link-left {
+  top: 0;
+  left: 0;
+  flex-direction: row-reverse;
+  transform: translate(calc(-100% + 7px), -50%);
+}
+
+.town-link-right {
+  top: 0;
+  left: 0;
+  flex-direction: row;
+  transform: translate(-7px, -50%);
+}
+
+.town-dot {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--color-navy);
+  box-shadow: 0 0 0 6px rgb(11 18 32 / 0.12);
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.town-name {
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.town-link:hover .town-dot,
+.town-link:focus-visible .town-dot {
+  background: var(--color-brand);
+  box-shadow: 0 0 0 8px rgb(30 144 255 / 0.28);
+}
+
+.town-link:hover .town-name,
+.town-link:focus-visible .town-name {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
