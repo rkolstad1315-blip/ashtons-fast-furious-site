@@ -21,6 +21,16 @@ function logMailError(error: unknown) {
 }
 
 export function createMailClient(apiKey = process.env.RESEND_API_KEY?.trim()): MailClient {
+  if (!apiKey && process.env.VERCEL_ENV === "production") {
+    // A missing key in production must fail loudly, or requests would be dropped while the form shows success.
+    return {
+      async send() {
+        logMailError(new Error("RESEND_API_KEY is not set in production"));
+        throw new Error("Email send failed");
+      },
+    };
+  }
+
   if (!apiKey) {
     return {
       async send(email) {

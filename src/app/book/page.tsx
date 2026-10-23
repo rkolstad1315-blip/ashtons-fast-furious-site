@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BookPage } from "@/components/booking/book-page";
+import { JsonLd } from "@/components/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 
 export function generateMetadata(): Metadata {
@@ -7,5 +8,10 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Page() {
-  return <BookPage />;
+  return (
+    <>
+      <JsonLd path="/book/" />
+      <BookPage />
+    </>
+  );
 }
