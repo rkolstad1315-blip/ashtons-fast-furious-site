@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BreadcrumbJsonLd } from "@/components/service-areas/breadcrumb-json-ld";
+import { JsonLd } from "@/components/json-ld";
 import { getPage } from "../../../content/seo";
 import type { Town } from "../../../content/towns";
 import {
@@ -24,7 +24,7 @@ export function TownPage({ town }: { town: Town }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
-      <BreadcrumbJsonLd path={townPath(town.slug)} />
+      <JsonLd path={townPath(town.slug)} />
       <h1
         id="town-heading"
         className="m-0 max-w-3xl text-balance font-display text-4xl leading-none md:text-6xl"
