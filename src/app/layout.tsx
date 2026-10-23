@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, Inter } from "next/font/google";
-import { headers } from "next/headers";
-import { JsonLd } from "@/components/json-ld";
 import { ContactAnalytics } from "@/components/contact-analytics";
 import { MobileBar } from "@/components/mobile-bar";
 import { SiteFooter } from "@/components/site-footer";
@@ -41,15 +39,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  // The document head is rendered here, so the request pathname has to be available.
-  await headers();
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <head>
-        <JsonLd />
-      </head>
       <body>
         <SiteHeader />
         <main>{children}</main>

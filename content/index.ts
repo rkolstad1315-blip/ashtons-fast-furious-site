@@ -3,7 +3,7 @@ import { business } from "./business";
 import { equipmentType, faqs } from "./faqs";
 import { home } from "./home";
 import { pricing } from "./pricing";
-import { reviews } from "./reviews";
+import { googleProfileUrl, reviews } from "./reviews";
 import { businessDescription, pages, postalCode, priceRange } from "./seo";
 import { stats } from "./stats";
 import { hubOnlyTowns, towns } from "./towns";
@@ -17,6 +17,7 @@ export const content = {
   faqs,
   equipmentType,
   reviews,
+  googleProfileUrl,
   stats,
   pages,
   postalCode,
