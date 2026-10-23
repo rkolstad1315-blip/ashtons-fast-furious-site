@@ -3,8 +3,12 @@ import { Barlow_Condensed, Inter } from "next/font/google";
 import { MobileBar } from "@/components/mobile-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { content } from "../../content";
+import { warnContentPlaceholders } from "../../content/placeholders";
 import { metadataCopy } from "../../content/shell";
 import "./globals.css";
+
+warnContentPlaceholders(content);
 
 const display = Barlow_Condensed({
   subsets: ["latin"],
