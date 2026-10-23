@@ -2,18 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DaycareAlternativePage } from "@/components/daycare-page";
 import { FaqPage } from "@/components/faq-page";
+import { HomeBottom } from "@/components/home/home-bottom";
 import { HomeTop } from "@/components/home/home-top";
+import { JsonLd } from "@/components/json-ld";
 import { SafetyPage } from "@/components/safety-page";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
-import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
+import { isPagePath, pages, pathFromSlug, type PagePath } from "../../../content/seo";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return pages.map((page) => ({
-    slug: page.path.split("/").filter(Boolean),
-  }));
+  return pages
+    .filter((page) => page.path !== "/book/")
+    .map((page) => ({
+      slug: page.path.split("/").filter(Boolean),
+    }));
 }
 
 type PageParams = {
@@ -35,8 +39,22 @@ export default async function Page({ params }: PageParams) {
   if (!isPagePath(path)) {
     notFound();
   }
+  return (
+    <>
+      <JsonLd path={path} />
+      <PageBody path={path} />
+    </>
+  );
+}
+
+function PageBody({ path }: { path: PagePath }) {
   if (path === "/") {
-    return <HomeTop />;
+    return (
+      <>
+        <HomeTop />
+        <HomeBottom />
+      </>
+    );
   }
   if (path === "/faq/") {
     return <FaqPage />;
