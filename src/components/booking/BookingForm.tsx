@@ -23,6 +23,7 @@ import {
   fieldErrorsFrom,
   parseDogCount,
   parseSessionLength,
+  parseTown,
   step1Schema,
   step2Schema,
   step3Schema,
@@ -59,9 +60,10 @@ const choiceClass =
 function createDraft(
   initialLength?: string | number | null,
   initialDogs?: string | null,
+  initialTown?: string | null,
 ): Draft {
   return {
-    town: "",
+    town: parseTown(initialTown) ?? "",
     otherTown: "",
     dogs: parseDogCount(initialDogs) ?? "",
     dogSize: "",
@@ -187,7 +189,11 @@ export function BookingForm({
 }: BookingFormProps) {
   const params = useSearchParams();
   const [draft, setDraft] = useState(() =>
-    createDraft(params.get("length") ?? initialLength, params.get("dogs") ?? initialDogs),
+    createDraft(
+      params.get("length") ?? initialLength,
+      params.get("dogs") ?? initialDogs,
+      params.get("town"),
+    ),
   );
   const [step, setStep] = useState(1);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});

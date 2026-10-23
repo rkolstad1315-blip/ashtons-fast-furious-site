@@ -23,8 +23,10 @@ const dedicatedPaths = new Set<string>([
 ]);
 
 export function generateStaticParams() {
+  // /book/ is its own route, and ticket 10 owns /service-areas/ and /service-areas/[town]/.
   return pages
-    .filter((page) => !dedicatedPaths.has(page.path))
+    // Ticket 10 owns /service-areas/ and /service-areas/[town]/.
+    .filter((page) => !dedicatedPaths.has(page.path) && !page.path.startsWith("/service-areas/"))
     .map((page) => ({
       slug: page.path.split("/").filter(Boolean),
     }));
