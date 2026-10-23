@@ -1,18 +1,32 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DaycareAlternativePage } from "@/components/daycare-page";
+import { FaqPage } from "@/components/faq-page";
 import { HomeBottom } from "@/components/home/home-bottom";
 import { HomeTop } from "@/components/home/home-top";
 import { JsonLd } from "@/components/json-ld";
+import { SafetyPage } from "@/components/safety-page";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
-import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
+import { isPagePath, pages, pathFromSlug, type PagePath } from "../../../content/seo";
 
 export const dynamicParams = false;
+
+// These URLs are real routes, so they are left out of the catch-all page.
+const dedicatedPaths = new Set<string>([
+  "/about/",
+  "/reviews/",
+  "/book/",
+  "/military-families/",
+  "/pricing/",
+  "/mobile-dog-treadmill/",
+]);
 
 export function generateStaticParams() {
   // /book/ is its own route, and ticket 10 owns /service-areas/ and /service-areas/[town]/.
   return pages
-    .filter((page) => page.path !== "/book/" && !page.path.startsWith("/service-areas/"))
+    // Ticket 10 owns /service-areas/ and /service-areas/[town]/.
+    .filter((page) => !dedicatedPaths.has(page.path) && !page.path.startsWith("/service-areas/"))
     .map((page) => ({
       slug: page.path.split("/").filter(Boolean),
     }));
@@ -40,14 +54,28 @@ export default async function Page({ params }: PageParams) {
   return (
     <>
       <JsonLd path={path} />
-      {path === "/" ? (
-        <>
-          <HomeTop />
-          <HomeBottom />
-        </>
-      ) : (
-        <SeoPage path={path} />
-      )}
+      <PageBody path={path} />
     </>
   );
+}
+
+function PageBody({ path }: { path: PagePath }) {
+  if (path === "/") {
+    return (
+      <>
+        <HomeTop />
+        <HomeBottom />
+      </>
+    );
+  }
+  if (path === "/faq/") {
+    return <FaqPage />;
+  }
+  if (path === "/safety/") {
+    return <SafetyPage />;
+  }
+  if (path === "/dog-daycare-alternative/") {
+    return <DaycareAlternativePage />;
+  }
+  return <SeoPage path={path} />;
 }

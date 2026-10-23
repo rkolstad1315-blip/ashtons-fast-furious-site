@@ -1,4 +1,5 @@
 import { business } from "./business";
+import { isPlaceholder } from "./placeholders";
 
 export const bookingTowns = ["Jacksonville", "Richlands", "Beulaville", "Other"] as const;
 export const bookingDogCounts = ["1", "2", "3 or more"] as const;
@@ -86,6 +87,10 @@ export function bookingProgress(step: number): string {
 }
 
 export function bookingConfirmation(responseTime: string = booking.responseTime): string {
+  // Leave the time out until it is confirmed, so customers never see the placeholder.
+  if (isPlaceholder(responseTime)) {
+    return "Thanks, we got your request. We'll text or call to set your free session.";
+  }
   return `Thanks, we got your request. We'll text or call within ${responseTime} to set your free session.`;
 }
 

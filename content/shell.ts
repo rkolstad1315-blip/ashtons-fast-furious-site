@@ -33,6 +33,6 @@ export const footerTowns = [
 ] as const;
 
 export const legalLinks = [
-  { label: "Privacy", href: "/privacy/" },
+  { label: "Privacy", href: "/privacy-policy/" },
   { label: "Terms", href: "/terms/" },
 ] as const;
