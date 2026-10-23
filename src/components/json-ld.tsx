@@ -1,21 +1,10 @@
-import { jsonLdFor, localBusiness } from "@/lib/structured-data";
-import { requestPathname } from "@/lib/request-path";
-import { isPagePath } from "../../content/seo";
+import { jsonLdFor } from "@/lib/structured-data";
+import type { PagePath } from "../../content/seo";
 
-function normalizePath(pathname: string): string {
-  if (!pathname || pathname === "/") {
-    return "/";
-  }
-  return pathname.endsWith("/") ? pathname : `${pathname}/`;
-}
-
-export function JsonLd() {
-  const path = normalizePath(requestPathname());
-  const blocks = isPagePath(path) ? jsonLdFor(path) : [localBusiness()];
-
+export function JsonLd({ path }: { path: PagePath }) {
   return (
     <>
-      {blocks.map((block) => (
+      {jsonLdFor(path).map((block) => (
         <script
           key={String(block["@type"])}
           type="application/ld+json"

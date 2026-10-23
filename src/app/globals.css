@@ -111,17 +111,6 @@ summary:focus-visible {
 }
 
 @media (min-width: 768px) {
-  .site-nav summary {
-    display: none !important;
-  }
-
-  /* Closed details content is [hidden], and Tailwind sets [hidden] to display:none !important. */
-  .site-nav details > ul {
-    display: flex !important;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
   .mobile-bar {
     display: none;
   }

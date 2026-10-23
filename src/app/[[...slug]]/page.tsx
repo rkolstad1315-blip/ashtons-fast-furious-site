@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { HomeBottom } from "@/components/home/home-bottom";
 import { HomeTop } from "@/components/home/home-top";
+import { JsonLd } from "@/components/json-ld";
 import { SeoPage } from "@/components/seo-page";
 import { pageMetadata } from "@/lib/metadata";
 import { isPagePath, pages, pathFromSlug } from "../../../content/seo";
@@ -33,13 +34,17 @@ export default async function Page({ params }: PageParams) {
   if (!isPagePath(path)) {
     notFound();
   }
-  if (path === "/") {
-    return (
-      <>
-        <HomeTop />
-        <HomeBottom />
-      </>
-    );
-  }
-  return <SeoPage path={path} />;
+  return (
+    <>
+      <JsonLd path={path} />
+      {path === "/" ? (
+        <>
+          <HomeTop />
+          <HomeBottom />
+        </>
+      ) : (
+        <SeoPage path={path} />
+      )}
+    </>
+  );
 }
