@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Icon } from "@/components/icons";
 import { useState } from "react";
 import { isPlaceholder } from "../../../content/placeholders";
 
@@ -67,7 +68,7 @@ export function VideoFacade({ video }: { video: VideoFacadeProps }) {
             className="absolute top-1/2 left-1/2 inline-flex min-h-11 -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-pill bg-brand px-5 font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={() => setPlaying(true)}
           >
-            <PlayIcon />
+            <Icon name="play" className="h-4 w-4" />
             {video.playLabel}
           </button>
         </>
@@ -76,10 +77,3 @@ export function VideoFacade({ video }: { video: VideoFacadeProps }) {
   );
 }
 
-function PlayIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-      <path d="M4 2.5v11l10-5.5-10-5.5z" fill="currentColor" />
-    </svg>
-  );
-}

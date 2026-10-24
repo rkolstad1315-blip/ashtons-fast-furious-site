@@ -13,7 +13,8 @@ export function SafetyPage() {
         {safetySections().map((section) => (
           <section
             key={section.id}
-            className="rounded-card border border-slate-200 px-5 py-5"
+            data-reveal
+            className="card rounded-card border border-slate-200 bg-white px-5 py-5"
             aria-labelledby={`safety-${section.id}`}
           >
             <h2

@@ -247,7 +247,7 @@ export function cardRouteLine(town: Town): string {
   return `${town.displayName} route days: ${town.routeDays}.`;
 }
 
-export function alsoServingLine(places: readonly { name: string }[]): string {
+function alsoServingLine(places: readonly { name: string }[]): string {
   const names = places.map((place) => place.name);
   if (names.length === 0) {
     return "";

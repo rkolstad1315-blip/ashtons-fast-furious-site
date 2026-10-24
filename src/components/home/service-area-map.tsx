@@ -17,7 +17,7 @@ export function ServiceAreaMap() {
   const copy = home.serviceArea;
 
   return (
-    <section className="bg-slate-100" aria-labelledby="service-area-heading">
+    <section className="bg-slate-100" data-reveal aria-labelledby="service-area-heading">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <h2 id="service-area-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
           {copy.heading}

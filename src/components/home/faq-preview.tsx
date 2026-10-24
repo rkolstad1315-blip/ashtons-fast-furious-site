@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { faqs } from "../../../content/faqs";
 import { home } from "../../../content/home";
 
@@ -13,7 +13,7 @@ export function FaqPreview() {
   });
 
   return (
-    <section className="faq-preview border-t border-slate-200 bg-white" aria-labelledby="faq-preview-heading">
+    <section className="faq-preview border-t border-slate-200 bg-white" data-reveal aria-labelledby="faq-preview-heading">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <h2 id="faq-preview-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
           {copy.heading}

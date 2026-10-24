@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { home } from "../../../content/home";
 import { isConfirmedPrice, pricing, type Session } from "../../../content/pricing";
 
@@ -28,7 +28,7 @@ function sessionCard(session: Session, highlighted: boolean): PriceCard | null {
   };
 }
 
-export function pricePreviewCards(): PriceCard[] {
+function pricePreviewCards(): PriceCard[] {
   const copy = home.pricingPreview;
   const cards: PriceCard[] = [];
 
@@ -95,7 +95,7 @@ export function PricingPreview() {
           {cards.map((card) => (
             <li key={card.id} className="min-w-0">
               <article
-                className={`relative h-full rounded-card bg-white p-5 ${titleSpace} ${
+                className={`card relative h-full rounded-card bg-white p-5 ${titleSpace} ${
                   card.highlighted ? "border-2 border-accent" : "border border-slate-200"
                 }`}
               >

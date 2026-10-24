@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { BookingFormSlot } from "@/components/booking-form-slot";
 import { bookPage } from "../../../content/book";
 import { business } from "../../../content/business";
@@ -34,7 +34,7 @@ export function BookPage() {
           </a>
         </div>
       </section>
-      <section className="mt-10" aria-labelledby="book-areas">
+      <section className="mt-10" data-reveal aria-labelledby="book-areas">
         <h2 id="book-areas" className="m-0 font-display text-3xl leading-none md:text-4xl">
           {bookPage.areasHeading}
         </h2>

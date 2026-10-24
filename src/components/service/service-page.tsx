@@ -1,9 +1,21 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
+import { isPlaceholder } from "../../../content/placeholders";
 import {
   beforeAfterEnabled,
   service,
   serviceVideoEnabled,
 } from "../../../content/service";
+
+// Sentences that still carry a placeholder stay out of the page until confirmed.
+function confirmedSentences(text: string): string {
+  return text
+    .split(/(?<=[.!?])\s+/)
+    .filter((sentence) => !isPlaceholder(sentence))
+    .join(" ");
+}
+
+const confirmedNeeds = service.needs.items.filter((item) => !isPlaceholder(item));
+const confirmedWeather = confirmedSentences(service.weather.body);
 
 export async function ServicePage() {
   const video = serviceVideoEnabled ? await loadVideo() : null;
@@ -24,7 +36,7 @@ export async function ServicePage() {
         </div>
       </section>
 
-      <section className="bg-slate-100" aria-labelledby="session-heading">
+      <section className="bg-slate-100" data-reveal aria-labelledby="session-heading">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <h2 id="session-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
             {service.session.heading}
@@ -42,38 +54,40 @@ export async function ServicePage() {
 
       <div className="bg-white">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-          <section aria-labelledby="lengths-heading">
+          <section data-reveal aria-labelledby="lengths-heading">
             <h2 id="lengths-heading" className="m-0 font-display text-4xl leading-none">
               {service.lengths.heading}
             </h2>
             <p className="m-0 mt-4 text-slate-700">{service.lengths.body}</p>
           </section>
-          <section aria-labelledby="intro-visit-heading">
+          <section data-reveal aria-labelledby="intro-visit-heading">
             <h2 id="intro-visit-heading" className="m-0 font-display text-4xl leading-none">
               {service.introVisit.heading}
             </h2>
             <p className="m-0 mt-4 text-slate-700">{service.introVisit.body}</p>
           </section>
-          <section aria-labelledby="needs-heading">
-            <h2 id="needs-heading" className="m-0 font-display text-4xl leading-none">
-              {service.needs.heading}
-            </h2>
-            <ul className="m-0 mt-4 list-disc space-y-2 pl-5 text-slate-700">
-              {service.needs.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
-          <section aria-labelledby="weather-heading">
+          {confirmedNeeds.length > 0 ? (
+            <section data-reveal aria-labelledby="needs-heading">
+              <h2 id="needs-heading" className="m-0 font-display text-4xl leading-none">
+                {service.needs.heading}
+              </h2>
+              <ul className="m-0 mt-4 list-disc space-y-2 pl-5 text-slate-700">
+                {confirmedNeeds.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          <section data-reveal aria-labelledby="weather-heading">
             <h2 id="weather-heading" className="m-0 font-display text-4xl leading-none">
               {service.weather.heading}
             </h2>
-            <p className="m-0 mt-4 text-slate-700">{service.weather.body}</p>
+            <p className="m-0 mt-4 text-slate-700">{confirmedWeather}</p>
           </section>
         </div>
       </div>
 
-      <section className="bg-slate-100" aria-labelledby="two-dogs-heading">
+      <section className="bg-slate-100" data-reveal aria-labelledby="two-dogs-heading">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <h2 id="two-dogs-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
             {service.twoDogs.heading}
@@ -88,7 +102,7 @@ export async function ServicePage() {
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <Link
             href={service.cta.href}
-            className="inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+            className="btn-accent inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
           >
             {service.cta.label}
           </Link>

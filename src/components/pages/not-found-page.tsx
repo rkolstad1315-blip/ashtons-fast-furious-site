@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { notFoundPage } from "../../../content/not-found";
 import { PageFrame, PageH1 } from "./page-frame";
 
@@ -13,7 +13,7 @@ export function NotFoundPage() {
             {link.label === "Book" ? (
               <Link
                 href={link.href}
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+                className="btn-accent inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
               >
                 {link.label}
               </Link>

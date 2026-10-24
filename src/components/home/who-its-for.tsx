@@ -15,14 +15,14 @@ export function WhoItsFor() {
   const { who } = home;
 
   return (
-    <section className="bg-white" aria-labelledby="who-its-for-heading">
+    <section className="bg-white" data-reveal aria-labelledby="who-its-for-heading">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <h2 id="who-its-for-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
           {who.heading}
         </h2>
         <ul className="bento m-0 mt-8 list-none p-0">
           {who.tiles.map((tile) => (
-            <li key={tile.id} className={`bento-${tile.id} min-w-0`}>
+            <li key={tile.id} className={`bento-${tile.id} card min-w-0 rounded-card`}>
               <article className="flex h-full flex-col overflow-hidden rounded-card border border-slate-200 bg-slate-100">
                 <div
                   className="tile-photo relative"

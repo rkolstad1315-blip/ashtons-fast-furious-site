@@ -1,10 +1,4 @@
 import type { NextConfig } from "next";
-import withBundleAnalyzerInit from "@next/bundle-analyzer";
-
-const withBundleAnalyzer = withBundleAnalyzerInit({
-  enabled: process.env.ANALYZE === "true",
-  openAnalyzer: false,
-});
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
@@ -12,6 +6,20 @@ const nextConfig: NextConfig = {
     // Hero srcset widths from ticket 04. imageSizes stay below the smallest device size.
     deviceSizes: [375, 768, 1280],
     imageSizes: [32, 48, 64, 96, 128, 256],
+    // Optimized images stay cached for 31 days; the source files below carry a year.
+    minimumCacheTTL: 2678400,
+  },
+  async headers() {
+    // /_next/static already ships public, max-age=31536000, immutable.
+    // Files in /public are not content hashed, so replacing one means renaming it.
+    const longCache = [
+      { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+    ];
+    return [
+      { source: "/images/:path*", headers: longCache },
+      { source: "/logo.png", headers: longCache },
+      { source: "/paw-trail.js", headers: longCache },
+    ];
   },
   async redirects() {
     return [
@@ -59,4 +67,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(nextConfig);
+// Bundle analysis: `npx next analyze` (Turbopack). @next/bundle-analyzer is webpack only.
+export default nextConfig;

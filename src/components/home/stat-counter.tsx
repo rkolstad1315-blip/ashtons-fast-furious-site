@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { observeOnce } from "@/lib/viewport-observer";
 
 type StatCounterProps = {
   sessionsRun: number | null;
@@ -48,7 +49,6 @@ function StatCounterLive({
     }
 
     let frame = 0;
-    let observer: IntersectionObserver | undefined;
     let started = false;
 
     const tick = (startTime: number, now: number) => {
@@ -66,7 +66,6 @@ function StatCounterLive({
         return;
       }
       started = true;
-      observer?.disconnect();
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         return;
       }
@@ -76,23 +75,12 @@ function StatCounterLive({
       frame = requestAnimationFrame((now) => tick(startTime, now));
     };
 
-    if (typeof IntersectionObserver === "undefined") {
-      frame = requestAnimationFrame(() => start());
-    } else {
-      observer = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((entry) => entry.isIntersecting)) {
-            start();
-          }
-        },
-        { threshold: 0.4 },
-      );
-      observer.observe(node);
-    }
+    // Shares the site wide IntersectionObserver instead of creating a second one.
+    const stopObserving = observeOnce(node, start);
 
     return () => {
       cancelAnimationFrame(frame);
-      observer?.disconnect();
+      stopObserving();
     };
   }, [dogsServed, sessionsRun]);
 

@@ -6,7 +6,10 @@ export const businessId = `${siteUrl}/#business`;
 export const postalCode = "[ZIP]" as const;
 export const schemaTelephone = `+1-${business.phoneDisplay}`;
 export const ogImagePath = business.logoPath;
-export const contentUpdated = "2026-10-23";
+export const contentUpdated = "2026-10-24";
+
+// Google Search Console HTML tag value (the content attribute only). Hidden until confirmed.
+export const googleSiteVerification = "[GOOGLE SITE VERIFICATION]";
 
 // Off unless MILITARY_PAGE_ENABLED is exactly "true" at build time.
 export const militaryFamiliesEnabled = process.env.MILITARY_PAGE_ENABLED === "true";

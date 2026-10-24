@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useRef, useState } from "react";
+import { observeOnce } from "@/lib/viewport-observer";
 import { booking, bookingProgress } from "../../../content/booking";
 
 const BookingForm = dynamic(() => import("./BookingForm").then((mod) => mod.BookingForm), {
@@ -9,7 +10,7 @@ const BookingForm = dynamic(() => import("./BookingForm").then((mod) => mod.Book
   loading: () => <BookingFormFallback />,
 });
 
-export function BookingFormFallback() {
+function BookingFormFallback() {
   return (
     <div className="min-h-[26rem]" aria-busy="true">
       <p className="m-0 text-sm font-semibold text-slate-600">{bookingProgress(1)}</p>
@@ -24,22 +25,13 @@ export function BookingFormSlot() {
 
   useEffect(() => {
     const node = containerRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") {
+    if (!node) {
       const frame = requestAnimationFrame(() => setNearViewport(true));
       return () => cancelAnimationFrame(frame);
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setNearViewport(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "320px 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+    // Shares the site wide IntersectionObserver; it loads the form a little before it scrolls in.
+    return observeOnce(node, () => setNearViewport(true));
   }, []);
 
   return (

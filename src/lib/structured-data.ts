@@ -10,7 +10,10 @@ import {
   siteUrl,
   type PagePath,
 } from "../../content/seo";
+import { isPlaceholder } from "../../content/placeholders";
 import { isConfirmedPrice, pricing } from "../../content/pricing";
+import { blogPage } from "../../content/blog-page";
+import { postPath, type BlogPost } from "./blog";
 
 export type JsonLdBlock = Record<string, unknown>;
 
@@ -25,7 +28,7 @@ function cities(): JsonLdBlock[] {
   }));
 }
 
-export function localBusiness(): JsonLdBlock {
+function localBusiness(): JsonLdBlock {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -42,7 +45,8 @@ export function localBusiness(): JsonLdBlock {
       "@type": "PostalAddress",
       addressLocality: "Jacksonville",
       addressRegion: "NC",
-      postalCode,
+      // The ZIP joins the markup once the owner confirms it; a placeholder never ships.
+      ...(isPlaceholder(postalCode) ? {} : { postalCode }),
       addressCountry: "US",
     },
     areaServed: cities(),
@@ -89,6 +93,50 @@ function breadcrumbNode(path: PagePath): JsonLdBlock {
       item: absolute(crumb.path),
     })),
   };
+}
+
+function breadcrumbList(crumbs: readonly { name: string; path: string }[]): JsonLdBlock {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: absolute(crumb.path),
+    })),
+  };
+}
+
+const blogCrumbs = [
+  { name: "Home", path: "/" },
+  { name: blogPage.crumbName, path: blogPage.path },
+];
+
+export function blogIndexJsonLd(): JsonLdBlock[] {
+  return [localBusiness(), breadcrumbList(blogCrumbs)];
+}
+
+// BlogPosting with the business as publisher. No Review or AggregateRating markup.
+export function blogPostJsonLd(post: BlogPost): JsonLdBlock[] {
+  const url = absolute(postPath(post.slug));
+  const image = post.images[0] ? absolute(post.images[0].src) : absolute(ogImagePath);
+  return [
+    localBusiness(),
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.description,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt,
+      author: { "@type": "Organization", name: post.author },
+      image,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      publisher: { "@id": businessId },
+    },
+    breadcrumbList([...blogCrumbs, { name: post.title, path: postPath(post.slug) }]),
+  ];
 }
 
 export function jsonLdFor(path: PagePath): JsonLdBlock[] {
