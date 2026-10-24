@@ -37,7 +37,7 @@ export function HeroSection() {
         <p className="m-0 mt-4 max-w-xl text-lg leading-snug text-white">{hero.subhead}</p>
         <Link
           href={hero.bookHref}
-          className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+          className="btn-accent mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
         >
           {hero.bookLabel}
         </Link>

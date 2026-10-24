@@ -177,7 +177,7 @@ export function PriceBuilder({
       {total != null ? (
         <Link
           href={bookHref(minutes, activeDogs)}
-          className="inline-flex min-h-11 w-full scroll-mb-20 items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline"
+          className="btn-accent inline-flex min-h-11 w-full scroll-mb-20 items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline"
         >
           {copy.bookThis}
         </Link>

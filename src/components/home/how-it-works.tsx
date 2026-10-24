@@ -4,7 +4,7 @@ export function HowItWorks() {
   const { howItWorks } = home;
 
   return (
-    <section className="bg-white" aria-labelledby="how-it-works-heading">
+    <section className="bg-white" data-reveal aria-labelledby="how-it-works-heading">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <h2 id="how-it-works-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
           {howItWorks.heading}

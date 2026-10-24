@@ -150,7 +150,7 @@ export function PricingView() {
             <li
               key={card.id}
               data-highlighted={card.highlighted ? "true" : "false"}
-              className={`rounded-card border-2 bg-white p-4 ${
+              className={`card rounded-card border-2 bg-white p-4 ${
                 card.highlighted ? "border-accent" : "border-slate-200"
               }`}
             >

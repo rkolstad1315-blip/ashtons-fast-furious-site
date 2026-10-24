@@ -56,7 +56,7 @@ export function ReviewsPage() {
         <ul className="m-0 mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
           {cards.map((review) => (
             <li key={`${review.date}-${review.name}`}>
-              <article className="h-full rounded-card border border-slate-200 bg-white p-4">
+              <article className="card h-full rounded-card border border-slate-200 bg-white p-4">
                 <h2 className="m-0 font-display text-2xl leading-tight">{review.name}</h2>
                 <p className="m-0 mt-1 text-sm font-semibold text-slate-600">{review.town}</p>
                 <p className="m-0 mt-3 leading-relaxed text-slate-700">{review.text}</p>

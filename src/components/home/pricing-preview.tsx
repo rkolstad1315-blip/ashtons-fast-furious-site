@@ -95,7 +95,7 @@ export function PricingPreview() {
           {cards.map((card) => (
             <li key={card.id} className="min-w-0">
               <article
-                className={`relative h-full rounded-card bg-white p-5 ${titleSpace} ${
+                className={`card relative h-full rounded-card bg-white p-5 ${titleSpace} ${
                   card.highlighted ? "border-2 border-accent" : "border border-slate-200"
                 }`}
               >

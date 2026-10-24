@@ -29,7 +29,7 @@ export function ServiceAreasHub() {
       <ul className="m-0 mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-3">
         {towns.map((town) => (
           <li key={town.slug}>
-            <article className="flex h-full flex-col rounded-card border border-slate-200 bg-slate-100 p-4">
+            <article className="card flex h-full flex-col rounded-card border border-slate-200 bg-slate-100 p-4">
               <h2 className="m-0 font-display text-3xl leading-none">
                 <Link
                   href={townPath(town.slug)}
@@ -47,7 +47,7 @@ export function ServiceAreasHub() {
       <p className="m-0 mt-8 text-slate-700">{hubAlsoServingLine}</p>
       <Link
         href="/book/"
-        className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+        className="btn-accent mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
       >
         {bookLabel}
       </Link>

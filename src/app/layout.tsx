@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, Inter } from "next/font/google";
 import { ContactAnalytics } from "@/components/contact-analytics";
+import { IconSprite } from "@/components/icons";
 import { MobileBar } from "@/components/mobile-bar";
+import { InteractionLayer } from "@/components/polish/interaction-layer";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { content } from "../../content";
@@ -39,14 +41,27 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Marks the document as JavaScript capable before first paint so the scroll
+// reveal start state never hides content from a visitor without JavaScript.
+const jsFlag = "document.documentElement.classList.add('js')";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
+      </head>
       <body>
+        <IconSprite />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
         <MobileBar />
+        <InteractionLayer />
         <ContactAnalytics />
         <Analytics />
       </body>

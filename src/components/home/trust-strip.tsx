@@ -20,7 +20,7 @@ export async function TrustStrip() {
   const StatCounter = showStats ? await loadStatCounter() : null;
 
   return (
-    <section className="bg-slate-100" aria-labelledby="trust-heading">
+    <section className="bg-slate-100" data-reveal aria-labelledby="trust-heading">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
         <h2 id="trust-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
           {home.trust.heading}

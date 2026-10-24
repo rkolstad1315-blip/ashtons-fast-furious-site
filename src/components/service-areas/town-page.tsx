@@ -49,21 +49,21 @@ export function TownPage({ town }: { town: Town }) {
         </ul>
       </section>
 
-      <section className="mt-10" aria-labelledby="town-route-days">
+      <section className="mt-10" data-reveal aria-labelledby="town-route-days">
         <h2 id="town-route-days" className="m-0 font-display text-3xl leading-none">
           {copy.routeHeading}
         </h2>
         <p className="m-0 mt-4 max-w-2xl">{copy.routeBody}</p>
       </section>
 
-      <section className="mt-10" aria-labelledby="town-travel-fee">
+      <section className="mt-10" data-reveal aria-labelledby="town-travel-fee">
         <h2 id="town-travel-fee" className="m-0 font-display text-3xl leading-none">
           {copy.feeHeading}
         </h2>
         <p className="m-0 mt-4 max-w-2xl">{copy.feeBody}</p>
       </section>
 
-      <section className="mt-10" aria-labelledby="town-local-note">
+      <section className="mt-10" data-reveal aria-labelledby="town-local-note">
         <h2 id="town-local-note" className="m-0 font-display text-3xl leading-none">
           {copy.noteHeading}
         </h2>
@@ -71,7 +71,7 @@ export function TownPage({ town }: { town: Town }) {
       </section>
 
       {reviews.length > 0 ? (
-        <section className="mt-10" aria-labelledby="town-reviews">
+        <section className="mt-10" data-reveal aria-labelledby="town-reviews">
           <h2 id="town-reviews" className="m-0 font-display text-3xl leading-none">
             {copy.reviewsHeading}
           </h2>
@@ -92,7 +92,7 @@ export function TownPage({ town }: { town: Town }) {
         </section>
       ) : null}
 
-      <section className="mt-10" aria-labelledby="town-photo">
+      <section className="mt-10" data-reveal aria-labelledby="town-photo">
         <h2 id="town-photo" className="m-0 font-display text-3xl leading-none">
           {copy.photoHeading}
         </h2>
@@ -116,7 +116,7 @@ export function TownPage({ town }: { town: Town }) {
         )}
       </section>
 
-      <section className="mt-10" aria-labelledby="town-faqs">
+      <section className="mt-10" data-reveal aria-labelledby="town-faqs">
         <h2 id="town-faqs" className="m-0 font-display text-3xl leading-none">
           {copy.faqsHeading}
         </h2>
@@ -132,7 +132,7 @@ export function TownPage({ town }: { town: Town }) {
 
       <Link
         href={townBookHref(town.slug)}
-        className="mt-10 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+        className="btn-accent mt-10 inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
       >
         {bookLabel}
       </Link>

@@ -11,13 +11,13 @@ export function DaycareAlternativePage() {
     <>
       <PageHeader title={page.h1} lede={daycarePage.opening} />
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-12 md:py-16">
-        <section aria-labelledby="daycare-reactive">
+        <section data-reveal aria-labelledby="daycare-reactive">
           <h2 id="daycare-reactive" className="m-0 font-display text-3xl leading-none md:text-4xl">
             {daycarePage.reactive.heading}
           </h2>
           <p className="m-0 mt-3 max-w-3xl text-slate-700">{daycarePage.reactive.body}</p>
         </section>
-        <section aria-labelledby="daycare-compare">
+        <section data-reveal aria-labelledby="daycare-compare">
           <h2 id="daycare-compare" className="m-0 font-display text-3xl leading-none md:text-4xl">
             {daycarePage.compareHeading}
           </h2>

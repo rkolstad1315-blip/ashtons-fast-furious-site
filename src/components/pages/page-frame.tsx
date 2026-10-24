@@ -27,7 +27,7 @@ export function TextSection({
   }
 
   return (
-    <section className="mt-10" aria-labelledby={id}>
+    <section className="mt-10" data-reveal aria-labelledby={id}>
       <h2 id={id} className="m-0 font-display text-3xl leading-none md:text-4xl">
         {heading}
       </h2>
@@ -41,7 +41,7 @@ export function BookCta({ href, label }: { href: string; label: string }) {
     <p className="m-0 mt-10">
       <Link
         href={href}
-        className="inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+        className="btn-accent inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
       >
         {label}
       </Link>
