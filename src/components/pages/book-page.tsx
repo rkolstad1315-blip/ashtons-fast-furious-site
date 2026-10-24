@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { BookingFormSlot } from "@/components/booking-form-slot";
 import { bookPage } from "../../../content/book";
 import { business } from "../../../content/business";

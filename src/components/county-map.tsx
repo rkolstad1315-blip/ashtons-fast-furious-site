@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { towns, type Town } from "../../content/towns";
 
 const viewBox = { width: 400, height: 260 };

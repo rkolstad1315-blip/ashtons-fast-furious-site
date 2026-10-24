@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { Icon } from "@/components/icons";
 import { book, business, menuLabel, navItems } from "../../content/shell";
 

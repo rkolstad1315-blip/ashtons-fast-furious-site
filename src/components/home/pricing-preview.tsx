@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { home } from "../../../content/home";
 import { isConfirmedPrice, pricing, type Session } from "../../../content/pricing";
 
@@ -28,7 +28,7 @@ function sessionCard(session: Session, highlighted: boolean): PriceCard | null {
   };
 }
 
-export function pricePreviewCards(): PriceCard[] {
+function pricePreviewCards(): PriceCard[] {
   const copy = home.pricingPreview;
   const cards: PriceCard[] = [];
 

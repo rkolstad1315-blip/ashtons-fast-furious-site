@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@vercel/analytics";
+import { trackEvent } from "@/lib/analytics";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
@@ -252,7 +252,7 @@ export function BookingForm({
         fail(fieldErrorsFrom(parsed.error));
         return;
       }
-      track("book_step_1");
+      trackEvent("book_step_1");
       goToStep(2);
       return;
     }
@@ -263,7 +263,7 @@ export function BookingForm({
         fail(fieldErrorsFrom(parsed.error));
         return;
       }
-      track("book_step_2");
+      trackEvent("book_step_2");
       goToStep(3);
       return;
     }
@@ -274,7 +274,7 @@ export function BookingForm({
         fail(fieldErrorsFrom(parsed.error));
         return;
       }
-      track("book_step_3");
+      trackEvent("book_step_3");
       goToStep(4);
       return;
     }
@@ -298,7 +298,7 @@ export function BookingForm({
       return;
     }
 
-    track("book_step_4");
+    trackEvent("book_step_4");
     setSending(true);
     setFieldErrors({});
     setFormMessage("");
@@ -330,7 +330,7 @@ export function BookingForm({
         setSending(false);
         return;
       }
-      track("book_submit");
+      trackEvent("book_submit");
       focusTarget.current = "thanks";
       setDone(true);
       setSending(false);

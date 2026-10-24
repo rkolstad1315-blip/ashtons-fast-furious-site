@@ -10,7 +10,7 @@ const BookingForm = dynamic(() => import("./BookingForm").then((mod) => mod.Book
   loading: () => <BookingFormFallback />,
 });
 
-export function BookingFormFallback() {
+function BookingFormFallback() {
   return (
     <div className="min-h-[26rem]" aria-busy="true">
       <p className="m-0 text-sm font-semibold text-slate-600">{bookingProgress(1)}</p>

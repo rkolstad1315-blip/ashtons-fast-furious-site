@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { pageCta } from "../../content/page-cta";
 
 export function BookCta() {

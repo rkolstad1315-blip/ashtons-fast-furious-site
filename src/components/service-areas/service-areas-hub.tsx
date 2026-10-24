@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { CountyMap } from "@/components/county-map";
 import { JsonLd } from "@/components/json-ld";
 import { home } from "../../../content/home";

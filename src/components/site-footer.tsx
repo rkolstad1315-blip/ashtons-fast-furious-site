@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { priceRange } from "../../content/seo";
 import { business, footerTowns, legalLinks } from "../../content/shell";
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { JsonLd } from "@/components/json-ld";
 import { getPage } from "../../../content/seo";
 import type { Town } from "../../../content/towns";

@@ -25,7 +25,7 @@ function cities(): JsonLdBlock[] {
   }));
 }
 
-export function localBusiness(): JsonLdBlock {
+function localBusiness(): JsonLdBlock {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",

@@ -1,4 +1,6 @@
-import { z } from "zod";
+// zod/mini keeps the booking form's lazy chunk small: it is tree shakeable,
+// so only the checks used here ship to the browser. The API route shares it.
+import * as z from "zod/mini";
 import {
   booking,
   bookingDays,
@@ -11,10 +13,10 @@ import {
 } from "../../content/booking";
 import { pricing } from "../../content/pricing";
 
-export const sessionLengths = pricing.sessions.map((session) => session.minutes);
+const sessionLengths = pricing.sessions.map((session) => session.minutes);
 
-export const MIN_TIME_ON_PAGE_MS = 1000;
-export const MAX_TIME_ON_PAGE_MS = 24 * 60 * 60 * 1000;
+const MIN_TIME_ON_PAGE_MS = 1000;
+const MAX_TIME_ON_PAGE_MS = 24 * 60 * 60 * 1000;
 
 const townField = z.enum(bookingTowns, booking.errors.town);
 const dogCountField = z.enum(bookingDogCounts, booking.errors.dogs);
@@ -22,27 +24,41 @@ const dogSizeField = z.enum(bookingDogSizes, booking.errors.dogSize);
 const dayField = z.enum(bookingDays, booking.errors.day);
 const timeField = z.enum(bookingTimes, booking.errors.time);
 
-const otherTownField = z.string().trim().max(80, booking.errors.otherTownLength);
+const otherTownField = z
+  .string()
+  .check(z.trim(), z.maxLength(80, booking.errors.otherTownLength));
 
-function requireOtherTown(
-  value: { town: string; otherTown: string },
-  ctx: z.RefinementCtx,
-) {
+const requireOtherTown = z.superRefine<{ town: string; otherTown: string }>((value, ctx) => {
   if (value.town === "Other" && value.otherTown.trim().length === 0) {
     ctx.addIssue({
       code: "custom",
       path: ["otherTown"],
       message: booking.errors.otherTown,
+      input: value.otherTown,
     });
   }
-}
+});
+
+const nameField = z
+  .string()
+  .check(
+    z.trim(),
+    z.minLength(1, booking.errors.name),
+    z.maxLength(80, booking.errors.nameLength),
+  );
+const phoneField = z.string().check(z.regex(/^\d{10}$/, booking.errors.phone));
+const emailField = z.pipe(z.string().check(z.trim()), z.email(booking.errors.email));
+const breedField = z.string().check(z.trim(), z.maxLength(80, booking.errors.breedLength));
+const notesField = z.string().check(z.trim(), z.maxLength(1000, booking.errors.notesLength));
+const smsField = z.boolean(booking.errors.sms);
+const daysField = z.array(dayField).check(z.minLength(1, booking.errors.days));
 
 export const step1Schema = z
   .object({
     town: townField,
     otherTown: otherTownField,
   })
-  .superRefine(requireOtherTown);
+  .check(requireOtherTown);
 
 export const step2Schema = z.object({
   dogs: dogCountField,
@@ -50,17 +66,17 @@ export const step2Schema = z.object({
 });
 
 export const step3Schema = z.object({
-  days: z.array(dayField).min(1, booking.errors.days),
+  days: daysField,
   time: timeField,
 });
 
 export const step4Schema = z.object({
-  name: z.string().trim().min(1, booking.errors.name).max(80, booking.errors.nameLength),
-  phone: z.string().regex(/^\d{10}$/, booking.errors.phone),
-  email: z.string().trim().pipe(z.email(booking.errors.email)),
-  breed: z.string().trim().max(80, booking.errors.breedLength),
-  notes: z.string().trim().max(1000, booking.errors.notesLength),
-  smsConsent: z.boolean(booking.errors.sms),
+  name: nameField,
+  phone: phoneField,
+  email: emailField,
+  breed: breedField,
+  notes: notesField,
+  smsConsent: smsField,
 });
 
 export const bookingSchema = z
@@ -69,30 +85,30 @@ export const bookingSchema = z
     otherTown: otherTownField,
     dogs: dogCountField,
     dogSize: dogSizeField,
-    days: z.array(dayField).min(1, booking.errors.days),
+    days: daysField,
     time: timeField,
-    name: z.string().trim().min(1, booking.errors.name).max(80, booking.errors.nameLength),
-    phone: z.string().regex(/^\d{10}$/, booking.errors.phone),
-    email: z.string().trim().pipe(z.email(booking.errors.email)),
-    breed: z.string().trim().max(80, booking.errors.breedLength),
-    notes: z.string().trim().max(1000, booking.errors.notesLength),
-    smsConsent: z.boolean(booking.errors.sms),
+    name: nameField,
+    phone: phoneField,
+    email: emailField,
+    breed: breedField,
+    notes: notesField,
+    smsConsent: smsField,
     sessionLength: z
-      .number()
-      .int()
-      .nullable()
-      .refine(
-        (value) => value === null || sessionLengths.includes(value),
-        booking.errors.sessionLength,
+      .nullable(z.int())
+      .check(
+        z.refine(
+          (value) => value === null || sessionLengths.includes(value),
+          booking.errors.sessionLength,
+        ),
       ),
-    company: z.string().max(200).optional().default(""),
-    startedAt: z.number().int(),
+    company: z._default(z.optional(z.string().check(z.maxLength(200))), ""),
+    startedAt: z.int(),
   })
-  .superRefine(requireOtherTown);
+  .check(requireOtherTown);
 
 export type BookingPayload = z.output<typeof bookingSchema>;
 
-export function fieldErrorsFrom(error: z.ZodError): Record<string, string> {
+export function fieldErrorsFrom(error: z.core.$ZodError): Record<string, string> {
   const fields: Record<string, string> = {};
   for (const issue of error.issues) {
     const key = typeof issue.path[0] === "string" ? issue.path[0] : "form";

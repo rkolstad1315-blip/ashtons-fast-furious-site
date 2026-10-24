@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, Inter } from "next/font/google";
-import { ContactAnalytics } from "@/components/contact-analytics";
+import { AnalyticsBootstrap } from "@/components/analytics-bootstrap";
 import { IconSprite } from "@/components/icons";
 import { MobileBar } from "@/components/mobile-bar";
 import { InteractionLayer } from "@/components/polish/interaction-layer";
@@ -62,8 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <MobileBar />
         <InteractionLayer />
-        <ContactAnalytics />
-        <Analytics />
+        <AnalyticsBootstrap />
       </body>
     </html>
   );

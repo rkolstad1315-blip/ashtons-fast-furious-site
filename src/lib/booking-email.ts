@@ -32,7 +32,7 @@ export function resolveFromAddress(): string {
   return `"${business.name}" <${business.email}>`;
 }
 
-export function answerRows(answers: BookingPayload): EmailRow[] {
+function answerRows(answers: BookingPayload): EmailRow[] {
   return [
     { label: booking.labels.town, value: answers.town },
     {
@@ -76,11 +76,11 @@ function escapeHtml(value: string): string {
     .replaceAll('"', "&quot;");
 }
 
-export function answersText(rows: EmailRow[]): string {
+function answersText(rows: EmailRow[]): string {
   return rows.map((row) => `${row.label}: ${row.value}`).join("\n");
 }
 
-export function answersTable(rows: EmailRow[]): string {
+function answersTable(rows: EmailRow[]): string {
   const body = rows
     .map(
       (row) =>

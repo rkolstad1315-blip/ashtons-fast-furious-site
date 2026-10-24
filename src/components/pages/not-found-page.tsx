@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { notFoundPage } from "../../../content/not-found";
 import { PageFrame, PageH1 } from "./page-frame";
 
