@@ -1,8 +1,11 @@
 import { Link } from "@/components/link";
 import { priceRange } from "../../content/seo";
 import { business, footerTowns, legalLinks } from "../../content/shell";
+import { blogPage } from "../../content/blog-page";
+import { publishablePosts } from "@/lib/blog";
 
 export function SiteFooter() {
+  const showBlog = publishablePosts().length > 0;
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto grid max-w-6xl gap-3 px-4 py-8">
@@ -32,6 +35,13 @@ export function SiteFooter() {
         </nav>
         <nav aria-label="Legal">
           <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
+            {showBlog ? (
+              <li>
+                <Link className="text-white hover:text-brand" href={blogPage.path}>
+                  {blogPage.footerLabel}
+                </Link>
+              </li>
+            ) : null}
             {legalLinks.map((item) => (
               <li key={item.href}>
                 <Link className="text-white hover:text-brand" href={item.href}>

@@ -27,6 +27,17 @@ Targets: score 98, LCP 1.8 s, INP 100 ms, CLS 0.02, FCP 1.2 s, TBT 50 ms, JS 70 
 - Every route is prerendered. `next build` lists each page as Static or SSG, and `/sitemap.xml` and `/robots.txt` are static too. The only dynamic route is the booking API.
 - The town pages are not in the sitemap yet because they are `noindex` until each one has four confirmed unique facts (ticket 10 guard). Their JavaScript and weight match /service-areas/.
 
+## Blog routes (ticket 15)
+
+Measured on a preview build (`BLOG_PREVIEW=true`) because every post is still a draft and production has no blog routes yet.
+
+| Route | Score | LCP | CLS | FCP | TBT | First load JS | Total weight |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| /blog/ | 98 | 1.97 s | 0.000 | 1.22 s | 130 ms | 143.0 KB | 244.8 KB |
+| /blog/high-energy-dog-exercise/ (longest post, 920 words) | 99 | 2.06 s | 0.000 | 0.77 s | 70 ms | 143.0 KB | 250.6 KB |
+
+No blog route ships a client component of its own; the JavaScript is the same framework runtime and layout code as every other page.
+
 ## First load JavaScript: the framework floor
 
 The 100 KB hard limit cannot be met with Next.js 16 App Router. The framework runtime alone is larger than the budget:
@@ -71,7 +82,7 @@ Options if the 100 KB figure must hold: it means leaving the React runtime behin
 ## Images, fonts, caching
 
 - Every image is AVIF, served through `next/image` with explicit dimensions and a `sizes` attribute. The hero is 4.6 KB at the 768 px width Lighthouse picks on a 412 px, 1.75x screen, preloaded with `fetchpriority=high`. The six "who it's for" tiles are lazy. These are placeholder illustrations; real photos must be compressed to the same budget (80 KB target, 150 KB limit for the hero).
-- Fonts: two families, Latin subset, `display: swap`. Barlow Condensed 800 (normal and italic, about 16 KB each) is preloaded for headings. Inter is one variable file (48 KB), not preloaded. No unused weights.
+- Fonts: two families, Latin subset. Barlow Condensed 800 (normal and italic, about 16 KB each) uses `display: swap` and is preloaded for headings. Inter is one variable file (48 KB), not preloaded, with `display: optional`: on a text heavy blog post the swap from the size adjusted fallback to Inter shifted the page by 0.19 CLS, and `optional` removes the swap (Inter paints when cached, the fallback stays otherwise). That change also took /safety/ from 0.019 to 0.000. No unused weights.
 - Cache headers: `/_next/static` ships `public, max-age=31536000, immutable` from Next. `/images/*`, `/logo.png`, and `/paw-trail.js` now carry the same header from `next.config.ts`, and optimized images keep a 31 day minimum TTL. Files in `/public` are not content hashed, so a replaced image needs a new file name.
 - No shadcn component is installed; the site uses no component library.
 

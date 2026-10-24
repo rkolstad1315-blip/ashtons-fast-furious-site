@@ -23,9 +23,12 @@ const display = Barlow_Condensed({
   variable: "--font-display",
 });
 
+// Body copy uses optional: Inter paints when it is already cached, and a
+// first visit on a slow connection keeps the size adjusted fallback instead
+// of swapping mid read. Swapping shifted long posts by up to 0.19 CLS.
 const body = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   preload: false,
   variable: "--font-body",
 });

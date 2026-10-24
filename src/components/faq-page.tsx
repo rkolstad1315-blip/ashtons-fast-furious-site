@@ -1,8 +1,26 @@
 import { faqPageCopy, faqPageSchema, visibleFaqGroups } from "../../content/faq-page";
 import { getPage } from "../../content/seo";
 import { Icon } from "@/components/icons";
+import { Link } from "@/components/link";
+import { postPath, readMorePostForFaq } from "@/lib/blog";
+import { blogPage } from "../../content/blog-page";
 import { BookCta } from "./book-cta";
 import { PageHeader } from "./page-header";
+
+function readMore(faqId: string) {
+  const post = readMorePostForFaq(faqId);
+  if (!post) {
+    return null;
+  }
+  return (
+    <>
+      {" "}
+      <Link href={postPath(post.slug)} className="font-semibold text-navy underline underline-offset-4">
+        {blogPage.readMoreLabel}: {post.title}
+      </Link>
+    </>
+  );
+}
 
 export function FaqPage() {
   const page = getPage("/faq/");
@@ -37,7 +55,10 @@ export function FaqPage() {
                       className="h-5 w-5 shrink-0 text-brand transition-transform duration-200 group-open:rotate-45"
                     />
                   </summary>
-                  <p className="m-0 max-w-3xl pb-4 text-slate-700">{item.answer}</p>
+                  <p className="m-0 max-w-3xl pb-4 text-slate-700">
+                    {item.answer}
+                    {readMore(item.id)}
+                  </p>
                 </details>
               ))}
             </div>

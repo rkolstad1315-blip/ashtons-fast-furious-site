@@ -17,6 +17,10 @@ npm run perf           # in another; Lighthouse mobile on every sitemap route
 
 `npm run perf` passes every hard limit except first load JavaScript, which is a framework floor on Next.js 16 (see `docs/perf-report.md`). Run it with `--js-limit 150` for a green gate until the budget is revised.
 
+## Blog state at launch
+
+Seven posts sit in `content/blog/`, all `draft: true`, with `[CONFIRM]` placeholders where an owner fact is needed (session length choices, heat cutoff, water breaks, reactive dog intro, two dogs per visit, military discount, on base access, driveway space, harness, vaccinations, weight limit, senior rules). While that is true the blog does not exist to visitors: `/blog/` is a 404 and nothing blog related is in the sitemap or footer. To publish a post, answer its placeholders, set `draft: false`, and deploy. Preview deployments can set `BLOG_PREVIEW=true` to render drafts.
+
 ## Environment variables (Vercel project settings)
 
 | Variable | Environments | Required | What it does |
@@ -24,6 +28,7 @@ npm run perf           # in another; Lighthouse mobile on every sitemap route
 | `RESEND_API_KEY` | Production, Preview | Yes in production | Sends the owner notification and the customer confirmation. When it is missing and `VERCEL_ENV` is `production`, the booking API returns an error instead of pretending to send. Outside Vercel production the mailer logs the email to the console. |
 | `OWNER_EMAIL` | Production, Preview | Recommended | Where booking requests go. Falls back to `content/booking.ts` `ownerEmail` while that is still a placeholder it falls back again to `info@ashtonsfastfurious.com`. |
 | `RESEND_FROM_EMAIL` | Production, Preview | Recommended | From address for both emails, for example `"Ashtons Fast & Fur-ious" <bookings@ashtonsfastfurious.com>`. Default is `"Ashtons Fast & Fur-ious" <info@ashtonsfastfurious.com>`. The sending domain must be verified in Resend first. |
+| `BLOG_PREVIEW` | Preview only | No | `true` renders draft and placeholder posts at their URLs for review. Never set it in production. |
 | `MILITARY_PAGE_ENABLED` | Production (build time) | No | Set to exactly `true` to publish `/military-families/` and put it in the sitemap. Leave unset until the military discount or on base access is confirmed. Changing it needs a redeploy. |
 
 `VERCEL_ENV` and `NODE_ENV` are set by Vercel. Nothing else is read from the environment.
