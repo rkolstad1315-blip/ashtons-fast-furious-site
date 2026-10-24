@@ -1,27 +1,27 @@
 # Performance report (ticket 13)
 
-Measured with `npm run perf` (Lighthouse 13, mobile, simulated slow 4G and 4x CPU slowdown, median of 3 runs) against `next start` on October 24, 2026. Sizes are transfer sizes as served by `next start` (gzip). Vercel serves Brotli, which comes out about 14 percent smaller for the JavaScript below.
+Measured with `npm run perf` (Lighthouse 13, mobile, simulated slow 4G and 4x CPU slowdown, median of 3 runs) against `next start` on October 24, 2026, on the final build of this branch (after tickets 12 to 15). Sizes are transfer sizes as served by `next start` (gzip). Vercel serves Brotli, which comes out about 14 percent smaller for the JavaScript below.
 
 ## Every route in the sitemap
 
 | Route | Score | LCP | CLS | FCP | TBT | First load JS | Total weight | Hero image |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| / | 99 | 1.99 s | 0.000 | 0.77 s | 60 ms | 144.2 KB | 281.6 KB | 4.6 KB AVIF |
-| /mobile-dog-treadmill/ | 99 | 1.84 s | 0.000 | 1.22 s | 70 ms | 144.9 KB | 246.4 KB | text LCP |
-| /pricing/ | 99 | 1.84 s | 0.000 | 1.21 s | 90 ms | 145.1 KB | 246.3 KB | text LCP |
-| /faq/ | 99 | 1.84 s | 0.000 | 1.22 s | 110 ms | 144.2 KB | 246.1 KB | text LCP |
-| /safety/ | 99 | 2.06 s | 0.019 | 1.21 s | 60 ms | 144.2 KB | 245.8 KB | text LCP |
-| /dog-daycare-alternative/ | 98 | 2.06 s | 0.000 | 1.21 s | 100 ms | 144.2 KB | 246.0 KB | text LCP |
-| /service-areas/ | 98 | 1.96 s | 0.000 | 1.21 s | 120 ms | 143.0 KB | 244.4 KB | text LCP |
-| /about/ | 99 | 1.99 s | 0.000 | 1.21 s | 100 ms | 143.0 KB | 243.2 KB | text LCP |
-| /reviews/ | 99 | 1.82 s | 0.000 | 1.22 s | 110 ms | 143.0 KB | 243.1 KB | text LCP |
-| /book/ | 99 | 2.06 s | 0.000 | 1.21 s | 50 ms | 166.7 KB | 267.4 KB | text LCP |
+| / | 99 | 2.04 s | 0.000 | 0.77 s | 60 ms | 144.2 KB | 281.8 KB | 4.6 KB AVIF |
+| /mobile-dog-treadmill/ | 99 | 1.84 s | 0.000 | 1.22 s | 60 ms | 144.9 KB | 246.5 KB | text LCP |
+| /pricing/ | 99 | 2.06 s | 0.000 | 1.22 s | 80 ms | 145.1 KB | 246.5 KB | text LCP |
+| /faq/ | 99 | 2.06 s | 0.000 | 1.21 s | 60 ms | 144.2 KB | 246.3 KB | text LCP |
+| /safety/ | 99 | 1.97 s | 0.000 | 1.22 s | 70 ms | 144.2 KB | 246.1 KB | text LCP |
+| /dog-daycare-alternative/ | 99 | 1.84 s | 0.000 | 1.22 s | 70 ms | 144.2 KB | 246.3 KB | text LCP |
+| /service-areas/ | 99 | 1.82 s | 0.000 | 1.22 s | 120 ms | 143.0 KB | 244.6 KB | text LCP |
+| /about/ | 99 | 2.06 s | 0.000 | 1.21 s | 70 ms | 143.0 KB | 243.4 KB | text LCP |
+| /reviews/ | 98 | 2.07 s | 0.000 | 1.21 s | 90 ms | 143.0 KB | 243.3 KB | text LCP |
+| /book/ | 99 | 1.85 s | 0.000 | 1.21 s | 70 ms | 166.7 KB | 267.6 KB | text LCP |
 
 Hard limits: score 95, LCP 2.5 s, INP 200 ms, CLS 0.1, FCP 1.8 s, TBT 150 ms, JS 100 KB, weight 900 KB, hero 150 KB.
 Targets: score 98, LCP 1.8 s, INP 100 ms, CLS 0.02, FCP 1.2 s, TBT 50 ms, JS 70 KB, weight 500 KB, hero 80 KB.
 
 - Every page meets every hard limit except first load JavaScript (see below).
-- Targets missed: LCP sits 0.02 to 0.26 s over the 1.8 s target on every page; FCP is 1.21 s against a 1.2 s target on every page but Home; TBT is over 50 ms on all but /book/.
+- Targets missed: LCP sits 0.02 to 0.27 s over the 1.8 s target on every page; FCP is 1.21 s against a 1.2 s target on every page but Home; TBT is over 50 ms everywhere. CLS is 0.000 on every page.
 - Lighthouse cannot measure INP in the lab. The INP column in `npm run perf` reports TBT as the lab proxy.
 - No third party request is made before interaction on any page. The Vercel Analytics script is injected at browser idle by an inline bootstrap; YouTube loads only after the play button is clicked.
 - Every route is prerendered. `next build` lists each page as Static or SSG, and `/sitemap.xml` and `/robots.txt` are static too. The only dynamic route is the booking API.
