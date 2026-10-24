@@ -3,6 +3,7 @@ import { CountyMap } from "@/components/county-map";
 import { JsonLd } from "@/components/json-ld";
 import { home } from "../../../content/home";
 import { getPage } from "../../../content/seo";
+import { isPlaceholder } from "../../../content/placeholders";
 import { towns } from "../../../content/towns";
 import {
   bookLabel,
@@ -39,7 +40,9 @@ export function ServiceAreasHub() {
                 </Link>
               </h2>
               <p className="m-0 mt-3 text-slate-700">{town.county} County</p>
-              <p className="m-0 mt-2">{cardRouteLine(town)}</p>
+              {isPlaceholder(town.routeDays) ? null : (
+                <p className="m-0 mt-2">{cardRouteLine(town)}</p>
+              )}
             </article>
           </li>
         ))}

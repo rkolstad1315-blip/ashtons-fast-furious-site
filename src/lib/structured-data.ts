@@ -10,6 +10,7 @@ import {
   siteUrl,
   type PagePath,
 } from "../../content/seo";
+import { isPlaceholder } from "../../content/placeholders";
 import { isConfirmedPrice, pricing } from "../../content/pricing";
 
 export type JsonLdBlock = Record<string, unknown>;
@@ -42,7 +43,8 @@ function localBusiness(): JsonLdBlock {
       "@type": "PostalAddress",
       addressLocality: "Jacksonville",
       addressRegion: "NC",
-      postalCode,
+      // The ZIP joins the markup once the owner confirms it; a placeholder never ships.
+      ...(isPlaceholder(postalCode) ? {} : { postalCode }),
       addressCountry: "US",
     },
     areaServed: cities(),

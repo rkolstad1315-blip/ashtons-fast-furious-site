@@ -8,7 +8,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { content } from "../../content";
 import { warnContentPlaceholders } from "../../content/placeholders";
-import { siteUrl } from "../../content/seo";
+import { isPlaceholder } from "../../content/placeholders";
+import { googleSiteVerification, siteUrl } from "../../content/seo";
 import "./globals.css";
 
 warnContentPlaceholders(content);
@@ -31,6 +32,9 @@ const body = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  ...(isPlaceholder(googleSiteVerification)
+    ? {}
+    : { verification: { google: googleSiteVerification } }),
 };
 
 // Pinch zoom stays available: maximumScale and userScalable are omitted.
