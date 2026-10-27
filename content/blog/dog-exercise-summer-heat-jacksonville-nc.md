@@ -61,5 +61,3 @@ Treadmill sessions supplement walks rather than replace them. When the cool wind
 2. Carry water, and keep the midday outing to a bathroom break on grass.
 3. Learn the warning signs, and call the vet at the first one.
 4. Plan an indoor outlet for the days you cannot walk at all.
-
-Your first session is free. [Book a free first session](/book/) and we will park the climate controlled unit in your driveway, or call or text 910-967-0205.

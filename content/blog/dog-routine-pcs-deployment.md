@@ -70,5 +70,3 @@ With us, the climate controlled unit parks in your driveway, a person supervises
 1. Pull vet records and update the microchip contact before the move.
 2. Pick two fixed walk times that survive a solo week, and protect them.
 3. Line up one source of exercise that does not depend on you having a free hour.
-
-Your first session is free. [Book a free first session](/book/) and we will come to your driveway, or call or text 910-967-0205.

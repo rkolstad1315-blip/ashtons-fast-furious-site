@@ -26,7 +26,8 @@ export const blogPage = {
     callLabel: `or call or text ${business.phoneDisplay}`,
     callHref: `tel:${business.phoneE164}`,
   },
-  // Every post must link to /book/ and to at least one of these.
+  // Every post must link to at least one of these. The /book/ link comes from
+  // the closing call to action the page adds under every post.
   requiredLinkTargets: [
     "/mobile-dog-treadmill/",
     "/safety/",

@@ -73,5 +73,3 @@ If your dog has a health condition, is a puppy, or is a senior, check with your 
 1. Watch your dog after the evening walk. Settled, or still pacing?
 2. Add one ten minute mental game a day.
 3. Try one harder workout and see how the evening goes.
-
-Your first session with us is free. [Book a free first session](/book/) and we will bring the unit to your driveway, or call or text 910-967-0205.

@@ -54,5 +54,3 @@ Expect a tired, settled dog that evening. If anything about the visit raised a h
 1. Book the free session and tell us about your dog.
 2. Have vaccination records handy, and a vet's okay if your dog is a senior or has a condition.
 3. Expect a slow intro, a harness, a person at your dog's side the whole time, and a plan for next time.
-
-[Book a free first session](/book/) and we will bring the unit to your driveway in Jacksonville, Richlands, or Beulaville, or call or text 910-967-0205.

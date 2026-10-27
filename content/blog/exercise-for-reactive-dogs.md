@@ -62,5 +62,3 @@ Look for a certified trainer or behavior consultant who uses reward based method
 1. Move walks to quiet hours and routes with sight lines.
 2. Add one scent game a day.
 3. Give your dog one hard, trigger free workout a week and watch what changes.
-
-Your first session is free. [Book a free first session](/book/) and we will come to your driveway, or call or text 910-967-0205.
