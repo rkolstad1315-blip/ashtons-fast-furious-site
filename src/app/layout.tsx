@@ -4,6 +4,7 @@ import { AnalyticsBootstrap } from "@/components/analytics-bootstrap";
 import { IconSprite } from "@/components/icons";
 import { MobileBar } from "@/components/mobile-bar";
 import { InteractionLayer } from "@/components/polish/interaction-layer";
+import { PawTrailLoader } from "@/components/polish/paw-trail-loader";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { content } from "../../content";
@@ -47,10 +48,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// Marks the document as JavaScript capable before first paint so the scroll
-// reveal start state never hides content from a visitor without JavaScript.
-const jsFlag = "document.documentElement.classList.add('js')";
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -58,9 +55,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${display.variable} ${body.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
-      </head>
       <body>
         <IconSprite />
         <SiteHeader />
@@ -68,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <MobileBar />
         <InteractionLayer />
+        <PawTrailLoader />
         <AnalyticsBootstrap />
       </body>
     </html>
