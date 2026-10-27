@@ -13,9 +13,9 @@ npm run start          # in one terminal
 npm run perf           # in another; Lighthouse mobile on every sitemap route
 ```
 
-`npm run placeholders` on October 24, 2026: no placeholder is visible on any indexable page. The three town pages still show `[CONFIRM]` and `[FEE]` and stay `noindex` and out of the sitemap until each one has four confirmed unique facts (ticket 10 guard). Everything else that is unconfirmed is hidden rather than shown. See "Owner values" below for what unlocks each hidden section.
+`npm run placeholders`: no placeholder is visible on any page. The three town pages leave out every section whose fact is still unconfirmed, and they stay `noindex` and out of the sitemap until each one has four confirmed unique facts (ticket 10 guard). Everything else that is unconfirmed is hidden rather than shown. See "Owner values" below for what unlocks each hidden section.
 
-`npm run perf` passes every hard limit except first load JavaScript, which is a framework floor on Next.js 16 (see `docs/perf-report.md`). Run it with `--js-limit 150` for a green gate until the budget is revised.
+`npm run perf` checks every hard limit. First load JavaScript is held to 150 KB gzipped (175 KB on `/book/`, which loads the booking form on arrival); the spec's original 100 KB is below the Next.js 16 framework floor (see `docs/perf-report.md`).
 
 ## Blog state at launch
 
@@ -25,8 +25,8 @@ Seven posts sit in `content/blog/`, all `draft: true`, with `[CONFIRM]` placehol
 
 | Variable | Environments | Required | What it does |
 | --- | --- | --- | --- |
-| `RESEND_API_KEY` | Production, Preview | Yes in production | Sends the owner notification and the customer confirmation. When it is missing and `VERCEL_ENV` is `production`, the booking API returns an error instead of pretending to send. Outside Vercel production the mailer logs the email to the console. |
-| `OWNER_EMAIL` | Production, Preview | Recommended | Where booking requests go. Falls back to `content/booking.ts` `ownerEmail` while that is still a placeholder it falls back again to `info@ashtonsfastfurious.com`. |
+| `RESEND_API_KEY` | Production, Preview | Yes in production | Sends the owner notification and the customer confirmation. When it is missing and `VERCEL_ENV` is `production`, the booking API returns an error and the form asks the visitor to call. Anywhere else (Preview deployments, `next start`) a missing key means the emails are only written to the function log while the visitor still sees the thank-you screen, so set the key on Preview too, or never send real customers to a Preview URL. |
+| `OWNER_EMAIL` | Production, Preview | Recommended | Where booking requests go. It wins over `content/booking.ts` `ownerEmail`; when neither is set to a real address, requests go to `info@ashtonsfastfurious.com`. |
 | `RESEND_FROM_EMAIL` | Production, Preview | Recommended | From address for both emails, for example `"Ashtons Fast & Fur-ious" <bookings@ashtonsfastfurious.com>`. Default is `"Ashtons Fast & Fur-ious" <info@ashtonsfastfurious.com>`. The sending domain must be verified in Resend first. |
 | `BLOG_PREVIEW` | Preview only | No | `true` renders draft and placeholder posts at their URLs for review. Never set it in production. |
 | `MILITARY_PAGE_ENABLED` | Production (build time) | No | Set to exactly `true` to publish `/military-families/` and put it in the sitemap. Leave unset until the military discount or on base access is confirmed. Changing it needs a redeploy. |
@@ -37,24 +37,32 @@ Vercel Web Analytics must be enabled on the project (Analytics tab) or the inlin
 
 ## Domain setup in Vercel
 
-No Vercel project for this site exists yet in the `rkolstad1315-4561's projects` team (checked October 24, 2026). Steps:
+The Vercel project already exists: `ashtons-fast-furious-site` in the `rkolstad1315-4561's projects` team, connected to this repository, deploying `main` to `https://ashtons-fast-furious-site.vercel.app` (checked October 26, 2026). That address is behind Vercel Authentication, which does not apply to custom domains. Steps:
 
-1. Vercel dashboard, Add New Project, import `rkolstad1315-blip/ashtons-fast-furious-site`. Framework preset Next.js, no build overrides, root directory `/`. Add the environment variables above before the first production deploy.
-2. Project Settings, Domains. Add `www.ashtonsfastfurious.com` first and mark it the production domain. Then add `ashtonsfastfurious.com` and choose "Redirect to www.ashtonsfastfurious.com" (Vercel answers with a 308). `next.config.ts` also 301 redirects any apex request to the www host as a second line of defence.
-3. Vercel shows the exact records for the project on the domain card and under `vercel domains inspect ashtonsfastfurious.com`. If the values shown differ from the table below, use the dashboard's.
+1. Project Settings, Environment Variables: add the variables above, then redeploy `main` so the production build picks them up.
+2. Project Settings, Domains. Add `www.ashtonsfastfurious.com` first and mark it the production domain. Then add `ashtonsfastfurious.com` and choose "Redirect to www.ashtonsfastfurious.com" with the 301 status (Vercel defaults to 308; both are permanent). `next.config.ts` also 301 redirects any apex request to the www host as a second line of defence.
+3. Vercel shows the exact DNS records for the project on each domain card. Use those values; the table below only shows the shape.
 
 ## DNS records at the registrar
 
 Before changing anything, export or screenshot the current zone. Keep every MX, TXT (SPF, DKIM, DMARC), and other record that is not an A, AAAA, or CNAME for `@` and `www`; email for `info@ashtonsfastfurious.com` depends on them.
 
+Example only; copy the values from the Vercel domain cards:
+
 | Type | Host (name) | Value | TTL |
 | --- | --- | --- | --- |
-| A | `@` | `76.76.21.21` | 300 (lowest the registrar allows) |
-| CNAME | `www` | `cname.vercel-dns-0.com` | 300 |
+| A | `@` | the IP on the apex domain card (long standing value `76.76.21.21`; newer projects get a project specific one) | 300 (lowest the registrar allows) |
+| CNAME | `www` | the CNAME on the www domain card (long standing value `cname.vercel-dns.com`; newer projects get a project specific one) | 300 |
 
-Remove any existing A, AAAA, or CNAME records for `@` and `www` that point at the old host (two A records for the same name would split traffic). If the registrar does not allow a CNAME on `www` alongside other records, use the A record value for `www` as well.
+Remove any existing A, AAAA, or CNAME records for `@` and `www` that point at the old host (two A records for the same name would split traffic). A CNAME cannot share its name with any other record, so `www` must have nothing else on it.
+
+Check the zone for CAA records. If there are any, one must allow `letsencrypt.org`, or Vercel cannot issue the certificate. With no CAA records at all, nothing needs changing.
 
 Vercel issues the TLS certificate automatically once the records resolve, usually within minutes; DNS propagation can take up to 48 hours depending on the old TTL.
+
+### Email sending (Resend)
+
+Booking emails go out from `info@ashtonsfastfurious.com` unless `RESEND_FROM_EMAIL` says otherwise, and Resend refuses to send from a domain it has not verified, so every booking fails with a 502 until this is done. In the Resend dashboard, add the sending domain (`ashtonsfastfurious.com`, or the subdomain used in `RESEND_FROM_EMAIL`) and copy the records it shows into the zone: a DKIM TXT record on `resend._domainkey`, and the MX and SPF TXT records on the `send` subdomain. These live on their own names and do not touch the existing MX records that deliver mail to the `info@` mailbox. Wait for Resend to show the domain as verified, then send one test booking on production.
 
 Google Search Console: verify with the HTML tag by pasting the `content` value into `content/seo.ts` (`googleSiteVerification`) and deploying; the tag is omitted while that value is a placeholder. The DNS TXT method works too and does not need a deploy. Then submit `https://www.ashtonsfastfurious.com/sitemap.xml`.
 
@@ -68,6 +76,7 @@ Verified against `next start` on October 24, 2026:
 | `/contact-us/` | 301 to `/book/` |
 | `/about-us` and `/contact-us` (no slash) | 308 to the slashed URL, then the 301 above |
 | `ashtonsfastfurious.com/` and `ashtonsfastfurious.com/<path>/` | 301 to `https://www.ashtonsfastfurious.com/<path>/` |
+| `/privacy/` (an early footer link that never went live) | 404; the privacy policy is at `/privacy-policy/` |
 | Any unknown URL | 404 page with a Book link |
 
 The spec records the live site as three pages: `/`, `/about-us/`, and `/contact-us/`. The live site could not be fetched from the build environment on October 24, 2026 (DNS did not resolve from the sandbox), so if the old platform served any other URL (for example `/services/` or `/faq/`), add it to `redirects()` in `next.config.ts` pointing at the closest new page before DNS moves.
@@ -98,6 +107,7 @@ Each item is a `[PLACEHOLDER]` in `/content`. Fill the value, run `npm run build
 | YouTube ID and poster, before and after photos | `content/service.ts` | Session video and slider |
 | Real reviews | `content/reviews.ts` `reviews` | Reviews page cards, Home reviews (at 3 or more) |
 | Sessions run and dogs served | `content/stats.ts` | Stat counter on Home |
+| Real logo | Save it under a new name in `public/` (files there are cached for a year, so reusing `logo.png` would serve the old one), then point `content/business.ts` `logoPath` and the `src` in `src/components/site-header.tsx` at it | Header logo, link previews (Open Graph and Twitter image), and `logo` and `image` in the JSON-LD. `public/logo.png` today is the scaffold placeholder. |
 
 ## Rollback
 
