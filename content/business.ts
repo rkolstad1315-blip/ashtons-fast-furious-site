@@ -18,7 +18,7 @@ export type Business = {
   hours: BusinessHours;
   serviceTowns: readonly ["Jacksonville", "Richlands", "Beulaville"];
   socialLinks: readonly SocialLink[];
-  logoPath: "/logo.png";
+  logoPath: "/brand/ashtons-logo-512.png";
   insuredStatement: "[CONFIRM INSURANCE]";
   insuredConfirmed: false;
 };
@@ -37,7 +37,7 @@ export const business: Business = {
   },
   serviceTowns: ["Jacksonville", "Richlands", "Beulaville"],
   socialLinks: [],
-  logoPath: "/logo.png",
+  logoPath: "/brand/ashtons-logo-512.png",
   insuredStatement: "[CONFIRM INSURANCE]",
   insuredConfirmed: false,
 };

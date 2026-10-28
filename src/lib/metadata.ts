@@ -6,6 +6,7 @@ import {
   getPage,
   militaryFamiliesEnabled,
   ogImagePath,
+  ogImageSize,
   siteUrl,
   type PagePath,
 } from "../../content/seo";
@@ -29,7 +30,7 @@ function baseMetadata({ title, description, path }: MetadataInput): Metadata {
       url: canonical,
       siteName: business.name,
       type: "website",
-      images: [{ url: image, width: 240, height: 64, alt: business.name }],
+      images: [{ url: image, ...ogImageSize, alt: business.name }],
     },
     twitter: {
       card: "summary_large_image",
@@ -87,8 +88,7 @@ export function pageMetadata(path: PagePath): Metadata {
       images: [
         {
           url: image,
-          width: 240,
-          height: 64,
+          ...ogImageSize,
           alt: business.name,
         },
       ],
