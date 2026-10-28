@@ -565,17 +565,23 @@ summary:focus-visible {
 
 /* Ticket 12: premium interaction layer. Transform and opacity only. */
 
-/* Scroll reveals. Hidden start state applies only once html has the js class,
-   which the inline head script adds before first paint. Off under reduced motion. */
+/* Scroll reveals. Hidden start state applies only once html has reveal-ready,
+   which the interaction layer adds after it runs. Off under reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-reveal] {
+  html.reveal-ready [data-reveal] {
     transition: opacity 400ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  html.js [data-reveal]:not(.is-visible) {
+  html.reveal-ready [data-reveal]:not(.is-visible) {
     opacity: 0;
     transform: translate3d(0, 16px, 0);
   }
+}
+
+/* Keyboard focus and in-page jumps land clear of the sticky bottom bar on
+   mobile and the fixed header on desktop. */
+html {
+  scroll-padding-bottom: calc(var(--mobile-bar-height) + 1rem);
 }
 
 /* Header. Mobile keeps the static white bar and the sticky bottom bar. */
@@ -595,6 +601,11 @@ summary:focus-visible {
 }
 
 @media (min-width: 768px) {
+  html {
+    scroll-padding-top: 96px;
+    scroll-padding-bottom: 0;
+  }
+
   body {
     padding-top: 80px;
   }
@@ -614,6 +625,14 @@ summary:focus-visible {
     background: transparent;
     border-bottom: 0;
     color: var(--color-white);
+    /* The box stays 80 px tall while the scrolled bar shrinks to 64 px, so
+       only the header's own controls take clicks. */
+    pointer-events: none;
+  }
+
+  .site-header a,
+  .site-header summary {
+    pointer-events: auto;
   }
 
   .site-header-bg {
@@ -717,7 +736,7 @@ summary:focus-visible {
   }
 }
 
-/* Paw print cursor trail. Elements are created by /paw-trail.js on the
+/* Paw print cursor trail. Elements are created by /paw-trail-2.js on the
    homepage only; the loader never runs on touch or under reduced motion. */
 .paw {
   position: fixed;

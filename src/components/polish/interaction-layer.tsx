@@ -6,9 +6,9 @@ import { observeOnce } from "@/lib/viewport-observer";
 
 const SCROLL_THRESHOLD = 8;
 
-// Scroll reveals and the header scroll state. Content is visible without
-// JavaScript; the hidden start state only applies once the html element
-// carries the js class, which the inline head script adds before first paint.
+// Scroll reveals and the header scroll state. Content is visible until this
+// component runs: the hidden start state only applies once the html element
+// carries reveal-ready, so a failed or slow script never leaves blank sections.
 export function InteractionLayer() {
   const pathname = usePathname();
 
@@ -36,7 +36,17 @@ export function InteractionLayer() {
 
   useEffect(() => {
     const targets = document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-visible)");
-    const cleanups = Array.from(targets, (target) =>
+    // Sections the visitor can already see stay as painted; only sections
+    // below the fold take the hidden start state.
+    const pending = Array.from(targets).filter((target) => {
+      if (target.getBoundingClientRect().top < window.innerHeight) {
+        target.classList.add("is-visible");
+        return false;
+      }
+      return true;
+    });
+    document.documentElement.classList.add("reveal-ready");
+    const cleanups = pending.map((target) =>
       observeOnce(target, () => target.classList.add("is-visible")),
     );
     return () => {

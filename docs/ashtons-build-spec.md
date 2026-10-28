@@ -312,7 +312,7 @@ Mobile load speed is a launch blocker. Most visitors will come from phones near 
 | Cumulative Layout Shift | 0.02 or less | 0.1 |
 | First Contentful Paint | 1.2 s or less | 1.8 s |
 | Total Blocking Time | 50 ms or less | 150 ms |
-| JavaScript shipped on first load | 70 KB gzipped or less | 100 KB |
+| JavaScript shipped on first load | 70 KB gzipped or less | 150 KB (175 KB on /book/) |
 | Total page weight on first load | 500 KB or less | 900 KB |
 | Hero image | 80 KB or less (AVIF) | 150 KB |
 

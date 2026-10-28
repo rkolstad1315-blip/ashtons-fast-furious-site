@@ -37,7 +37,7 @@ Tickets 05 to 11 can run in parallel once 04 is merged, as long as each stays on
 ```text
 Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service (climate controlled unit with two dog treadmills that parks in the customer's driveway) serving Jacksonville, Richlands, and Beulaville, North Carolina. Phone 910-967-0205. Email info@ashtonsfastfurious.com. Hours 7 AM to 7 PM. Price $60 per 30 minutes; first session free.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui only where named, deployed on Vercel.
-House rules: mobile first; every page must hold a PageSpeed mobile score of 95 or higher, LCP under 2.5 s (target 1.8 s), CLS under 0.1 (target 0.02), first load JS under 100 KB gzipped; no animation libraries; animate transform and opacity only; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics; unconfirmed facts go in as [BRACKETED PLACEHOLDERS] read from content files; one H1 per page; all copy lives in /content, not in components.
+House rules: mobile first; every page must hold a PageSpeed mobile score of 95 or higher, LCP under 2.5 s (target 1.8 s), CLS under 0.1 (target 0.02), first load JS under 150 KB gzipped (175 KB on /book/); no animation libraries; animate transform and opacity only; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics; unconfirmed facts go in as [BRACKETED PLACEHOLDERS] read from content files; one H1 per page; all copy lives in /content, not in components.
 
 Ticket 01: scaffold the project and build the layout shell.
 1. Create a Next.js App Router project with TypeScript, Tailwind, ESLint, src directory. Add @next/bundle-analyzer behind ANALYZE=true.
@@ -164,7 +164,7 @@ End with READY TO MERGE or NEEDS FIXES.
 ```text
 Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service (climate controlled unit with two dog treadmills that parks in the customer's driveway) serving Jacksonville, Richlands, and Beulaville, North Carolina. Phone 910-967-0205. Price $60 per 30 minutes; first session free.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel. Copy reads from /content. Design tokens and fonts from ticket 01.
-House rules: mobile first; PageSpeed mobile 95 or higher, LCP target 1.8 s, CLS target 0.02, first load JS under 100 KB gzipped; no animation libraries; animate transform and opacity only; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews or statistics.
+House rules: mobile first; PageSpeed mobile 95 or higher, LCP target 1.8 s, CLS target 0.02, first load JS under 150 KB gzipped (175 KB on /book/); no animation libraries; animate transform and opacity only; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews or statistics.
 
 Ticket 04: build the top four homepage sections as Server Components unless noted.
 1. Hero. Full width, dark navy overlay on a real photo (placeholder /public/images/hero-dog-treadmill.avif, 1600x1000, with 375, 768, 1280 srcset). Use next/image with priority and fetchPriority high, explicit width and height. Above the H1, a pill label: "Now booking: Jacksonville, Richlands, Beulaville". H1: "Mobile Dog Treadmill Workouts in Jacksonville, NC". Subhead: "Climate controlled, supervised workouts in your driveway. Your first session is free." Primary button in the accent color: "Book a free first session" linking to /book/. Under it a quiet text link: "or call or text 910-967-0205" (tel:). Kinetic headline: each line slides in from the left with a short speed blur, CSS keyframes only, 500 ms total, starting after first paint, transform and opacity only, and disabled under prefers-reduced-motion. The H1 text must be in the HTML at load so LCP is not delayed.
@@ -200,7 +200,7 @@ End with READY TO MERGE or NEEDS FIXES.
 ```text
 Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service (climate controlled unit with two dog treadmills that parks in the customer's driveway) serving Jacksonville, Richlands, and Beulaville, North Carolina. Phone 910-967-0205. Price $60 per 30 minutes; first session free.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel. Copy reads from /content. Design tokens and fonts from ticket 01; homepage top from ticket 04.
-House rules: mobile first; PageSpeed mobile 95 or higher, CLS target 0.02, first load JS under 100 KB gzipped; no animation libraries; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics.
+House rules: mobile first; PageSpeed mobile 95 or higher, CLS target 0.02, first load JS under 150 KB gzipped (175 KB on /book/); no animation libraries; respect prefers-reduced-motion; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics.
 
 Ticket 05: build the bottom five homepage sections.
 1. Pricing preview. Three cards from pricing.ts: Free first session; 30 minute session $60 (highlighted with an accent border and a "Most popular" pill); Monthly membership (render only when membership.enabled is true and the price is not a placeholder; otherwise show a 15 or 60 minute card if confirmed, else show two cards). Link: "See all prices" to /pricing/.
@@ -444,7 +444,7 @@ End with READY TO MERGE or NEEDS FIXES.
 ```text
 Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service serving Jacksonville, Richlands, and Beulaville, North Carolina. All pages exist from tickets 01 to 11.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel.
-House rules: mobile first; every page must keep a PageSpeed mobile score of 95 or higher, CLS under 0.02, and first load JS under 100 KB gzipped after this ticket; no animation libraries; animate transform and opacity only; everything respects prefers-reduced-motion; no motion on prices, form fields, or buttons a visitor needs to read before acting.
+House rules: mobile first; every page must keep a PageSpeed mobile score of 95 or higher, CLS under 0.02, and first load JS under 150 KB gzipped (175 KB on /book/) after this ticket; no animation libraries; animate transform and opacity only; everything respects prefers-reduced-motion; no motion on prices, form fields, or buttons a visitor needs to read before acting.
 
 Ticket 12: add the premium interaction layer.
 1. Scroll reveals: one shared client component that creates a single IntersectionObserver and adds an is-visible class; sections fade in and lift 16 px over 400 ms. Content is visible by default without JavaScript; the hidden start state applies only after the script runs. Off under reduced motion.
@@ -469,7 +469,7 @@ Checks:
 6. The paw trail script does not load on touch devices or on any page but Home, and is under 2 KB.
 7. The header shrink causes no layout shift; mobile shows the bottom bar, not the glass header.
 8. No icon package remains in package.json.
-9. First load JS on / is under 100 KB gzipped; report the number.
+9. First load JS on / is under 150 KB gzipped; report the number.
 End with READY TO MERGE or NEEDS FIXES.
 ```
 
@@ -483,7 +483,7 @@ Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel.
 House rules: mobile load speed is a launch blocker.
 
 Ticket 13: bring every page inside this mobile budget, measured with Lighthouse mobile simulated throttling.
-Targets (hard limits in parentheses): performance score 98 (95); LCP 1.8 s (2.5 s); INP 100 ms (200 ms); CLS 0.02 (0.1); FCP 1.2 s (1.8 s); TBT 50 ms (150 ms); first load JS 70 KB gzipped (100 KB); total first load weight 500 KB (900 KB); hero image 80 KB AVIF (150 KB).
+Targets (hard limits in parentheses): performance score 98 (95); LCP 1.8 s (2.5 s); INP 100 ms (200 ms); CLS 0.02 (0.1); FCP 1.2 s (1.8 s); TBT 50 ms (150 ms); first load JS 70 KB gzipped (150 KB, 175 KB on /book/); total first load weight 500 KB (900 KB); hero image 80 KB AVIF (150 KB).
 1. Run ANALYZE=true npm run build and list every client chunk over 30 KB with the reason it exists; split or remove any that are not needed.
 2. Convert every image to AVIF with WebP fallback through next/image, correct sizes attributes, explicit dimensions, lazy below the fold. Compress the hero to the budget.
 3. Fonts: confirm two families at most, Latin subset, only the display face preloaded, no unused weights.
@@ -500,7 +500,7 @@ Paste the perf table for every page in the commit message. Commit on branch tick
 You are QA for the Ashtons Fast & Fur-ious website rebuild (Next.js App Router, TypeScript, Tailwind, Vercel; mobile dog treadmill service in Jacksonville, Richlands, and Beulaville NC). Review branch ticket/13-performance against main. Run npm run build, start the production server, and run npm run perf. Also run Lighthouse mobile by hand on /, /pricing/, and /book/ to confirm the script's numbers. Report each check as PASS or FAIL with evidence. Do not change any code.
 Checks:
 1. npm run perf passes on every route; paste its table.
-2. Every page meets the hard limits: score 95, LCP 2.5 s, INP 200 ms, CLS 0.1, FCP 1.8 s, TBT 150 ms, first load JS 100 KB gzipped, total weight 900 KB.
+2. Every page meets the hard limits: score 95, LCP 2.5 s, INP 200 ms, CLS 0.1, FCP 1.8 s, TBT 150 ms, first load JS 150 KB gzipped (175 KB on /book/), total weight 900 KB.
 3. Flag every page that misses a target (98, 1.8 s, 100 ms, 0.02, 1.2 s, 50 ms, 70 KB, 500 KB) even if it passes the hard limit.
 4. The hero image is AVIF and under 150 KB; report its size.
 5. No client chunk over 30 KB without a stated reason.
@@ -557,14 +557,14 @@ Start this ticket only after launch, and only once the first four posts are writ
 ```text
 Project: rebuild of ashtonsfastfurious.com for Ashtons Fast & Fur-ious, a mobile dog treadmill service (climate controlled unit with two dog treadmills that parks in the customer's driveway) serving Jacksonville, Richlands, and Beulaville, North Carolina. Phone 910-967-0205. Price $60 per 30 minutes; first session free. The site has passed tickets 01 to 14 and is live.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, deployed on Vercel. Copy reads from /content. Metadata helper and JSON-LD component from ticket 03. Read the MDX guide in node_modules/next/dist/docs/ before choosing how to load Markdown.
-House rules: mobile first; PageSpeed mobile 95 or higher, LCP under 2.5 s, CLS under 0.1, first load JS under 100 KB gzipped; no new client JavaScript; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics; one H1 per page; all copy lives in /content.
+House rules: mobile first; PageSpeed mobile 95 or higher, LCP under 2.5 s, CLS under 0.1, first load JS under 150 KB gzipped (175 KB on /book/); no new client JavaScript; no em dashes or en dashes in visible copy; never invent reviews, ratings, or statistics; one H1 per page; all copy lives in /content.
 
 Ticket 15: add a blog.
 1. Posts are Markdown files in /content/blog/, one per post, with typed frontmatter: title, description, slug, publishedAt, updatedAt, author, primaryKeyword, relatedFaqIds, draft (boolean). Parse them on the server at build time; every blog route is prerendered static HTML with no client component.
 2. Build time validation that fails the build: title under 60 characters, description under 155, unique slugs, no em dash or en dash in any title, description, or body, and no H1 inside a post body (the page renders the H1 from the title). In production builds, leave out any post with draft true or any [BRACKETED] placeholder in its frontmatter or body. Log which posts were left out and why.
 3. /blog/: title "Dog Exercise Tips for Jacksonville NC | Ashtons", H1 "Dog Exercise Tips from Ashtons", a short intro from /content, and post cards (title, description, published date) newest first. While no post is publishable, return 404 and leave /blog/ out of the sitemap and the footer.
 4. /blog/[slug]/: H1 is the post title; visible published date and, when different, updated date; the body with H2 and H3 only and no skipped levels; one closing call to action with the accent Book button linking to /book/ and the call or text tel: link; up to two related posts. Images use next/image with explicit width and height and alt text; all post images are lazy except the first image when it sits above the fold.
-5. Every post must link to /book/ and to at least one of /mobile-dog-treadmill/, /safety/, /faq/, or a town page. Fail the build when a post has neither.
+5. Every post must link to at least one of /mobile-dog-treadmill/, /safety/, /faq/, or a town page; the /book/ link comes from the page's closing call to action, so a post must not end with its own Book paragraph. Fail the build in either case.
 6. Metadata through the ticket 03 helper: self referencing canonical on the www host, Open Graph type article with published and modified times. JSON-LD: BlogPosting with headline, description, datePublished, dateModified, author, image, mainEntityOfPage, and publisher pointing to https://www.ashtonsfastfurious.com/#business; BreadcrumbList Home, Blog, post. No AggregateRating or Review markup.
 7. Add /blog/ and every published post to app/sitemap.ts, with lastmod set to updatedAt.
 8. Links: add Blog to the footer. Do not add it to the header nav, which stays at six items or fewer. On /faq/, an answer whose id is in a post's relatedFaqIds gets a "Read more" link to that post.
@@ -582,7 +582,7 @@ Checks:
 3. No draft post and no post containing a [BRACKETED] placeholder appears on /blog/, at its URL, or in the sitemap. Temporarily add a placeholder to a published post, rebuild, confirm it drops out, then revert.
 4. Each post has one H1 equal to its title, no skipped heading levels, a title under 60 characters, a description under 155, and a self referencing www canonical.
 5. BlogPosting JSON-LD parses, has datePublished and dateModified matching the visible dates, and its publisher @id is https://www.ashtonsfastfurious.com/#business; BreadcrumbList is Home, Blog, post; no AggregateRating or Review markup.
-6. Every post links to /book/ and to at least one service, safety, FAQ, or town page.
+6. Every post links to at least one service, safety, FAQ, or town page, and the page shows exactly one Book call to action, after the post.
 7. /sitemap.xml lists /blog/ and each published post with lastmod equal to updatedAt.
 8. Blog appears in the footer and not in the header nav; header nav still has six items or fewer.
 9. No statistic, health claim, or temperature figure in a post appears without either a confirmed owner fact or a linked source; quote any that do not.

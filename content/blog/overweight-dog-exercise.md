@@ -64,4 +64,4 @@ Sessions supplement walks rather than replace them. Walks are still where your d
 2. Measure every meal and swap treats for play or praise.
 3. Add a few minutes to the daily walks each week, and try one controlled session.
 
-Check with your vet first before starting any exercise plan for an overweight dog. When you are ready, your first session is free. [Book a free first session](/book/) and we will bring the unit to your driveway, or call or text 910-967-0205.
+Check with your vet first before starting any exercise plan for an overweight dog.

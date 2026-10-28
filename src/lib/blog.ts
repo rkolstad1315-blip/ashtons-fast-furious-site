@@ -172,8 +172,19 @@ function validateBody(file: string, tokens: Token[], knownPaths: Set<string>): B
     }
   });
 
-  if (!links.has("/book/")) {
-    fail(file, "Every post must link to /book/.");
+  // The page adds the one closing call to action with the /book/ link, so a
+  // post must not end with a Book paragraph of its own.
+  const lastBlock = tokens.filter((token) => token.type !== "space").at(-1);
+  if (lastBlock?.type === "paragraph") {
+    let endsWithBook = false;
+    walk([lastBlock], (token) => {
+      if (token.type === "link" && (token as Tokens.Link).href.split(/[?#]/)[0] === "/book/") {
+        endsWithBook = true;
+      }
+    });
+    if (endsWithBook) {
+      fail(file, "Do not end a post with a Book link; the page adds the closing call to action.");
+    }
   }
   if (!blogPage.requiredLinkTargets.some((target) => links.has(target))) {
     fail(file, `Every post must link to one of: ${blogPage.requiredLinkTargets.join(", ")}.`);

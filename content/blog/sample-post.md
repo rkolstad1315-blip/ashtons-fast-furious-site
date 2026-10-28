@@ -19,7 +19,7 @@ Paragraphs, H2 and H3 headings, bold and italic text, links, lists, and quotes.
 ### Lists and links
 
 - An internal link to the [service page](/mobile-dog-treadmill/) renders through the site's Link component.
-- A link to [book a free first session](/book/) is required in every post.
+- The page adds the closing call to action with the Book link, so posts do not end with one.
 - External links point at https sources, like the [AVMA warm weather page](https://www.avma.org/resources/pet-owners/petcare/warm-weather-pet-safety).
 
 > Quotes render with a blue rule on the left.
