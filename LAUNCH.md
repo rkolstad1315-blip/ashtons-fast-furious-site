@@ -107,7 +107,6 @@ Each item is a `[PLACEHOLDER]` in `/content`. Fill the value, run `npm run build
 | YouTube ID and poster, before and after photos | `content/service.ts` | Session video and slider |
 | Real reviews | `content/reviews.ts` `reviews` | Reviews page cards, Home reviews (at 3 or more) |
 | Sessions run and dogs served | `content/stats.ts` | Stat counter on Home |
-| Real logo | Save it under a new name in `public/` (files there are cached for a year, so reusing `logo.png` would serve the old one), then point `content/business.ts` `logoPath` and the `src` in `src/components/site-header.tsx` at it | Header logo, link previews (Open Graph and Twitter image), and `logo` and `image` in the JSON-LD. `public/logo.png` today is the scaffold placeholder. |
 
 ## Rollback
 

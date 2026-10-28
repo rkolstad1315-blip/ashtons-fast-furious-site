@@ -6,6 +6,7 @@ export const business = {
   phoneTel: profile.phoneE164,
   email: profile.email,
   hours: profile.hours.display,
+  logoPath: profile.logoPath,
 };
 
 export const navItems = [

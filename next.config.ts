@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     ];
     return [
       { source: "/images/:path*", headers: longCache },
-      { source: "/logo.png", headers: longCache },
+      { source: "/brand/:path*", headers: longCache },
       { source: "/paw-trail-2.js", headers: longCache },
     ];
   },

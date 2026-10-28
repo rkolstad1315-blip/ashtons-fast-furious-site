@@ -5,7 +5,10 @@ export const siteUrl = "https://www.ashtonsfastfurious.com";
 export const businessId = `${siteUrl}/#business`;
 export const postalCode = "[ZIP]" as const;
 export const schemaTelephone = `+1-${business.phoneDisplay}`;
-export const ogImagePath = business.logoPath;
+// Link preview image: the logo on the site light slate at the 1200x630 size that
+// Facebook, iMessage, and summary_large_image cards expect.
+export const ogImagePath = "/brand/ashtons-og-1200x630.jpg";
+export const ogImageSize = { width: 1200, height: 630 } as const;
 export const contentUpdated = "2026-10-24";
 
 // Google Search Console HTML tag value (the content attribute only). Hidden until confirmed.

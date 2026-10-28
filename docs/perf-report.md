@@ -83,7 +83,7 @@ Meeting the old 100 KB figure would mean leaving the React runtime behind (stati
 
 - Every image is AVIF, served through `next/image` with explicit dimensions and a `sizes` attribute. The hero is 4.6 KB at the 768 px width Lighthouse picks on a 412 px, 1.75x screen, preloaded with `fetchpriority=high`. The six "who it's for" tiles are lazy. These are placeholder illustrations; real photos must be compressed to the same budget (80 KB target, 150 KB limit for the hero).
 - Fonts: two families, Latin subset. Barlow Condensed 800 (normal and italic, about 16 KB each) uses `display: swap` and is preloaded for headings. Inter is one variable file (48 KB), not preloaded, with `display: optional`: on a text heavy blog post the swap from the size adjusted fallback to Inter shifted the page by 0.19 CLS, and `optional` removes the swap (Inter paints when cached, the fallback stays otherwise). That change also took /safety/ from 0.019 to 0.000. No unused weights.
-- Cache headers: `/_next/static` ships `public, max-age=31536000, immutable` from Next. `/images/*`, `/logo.png`, and `/paw-trail-2.js` now carry the same header from `next.config.ts`, and optimized images keep a 31 day minimum TTL. Files in `/public` are not content hashed, so a replaced image needs a new file name.
+- Cache headers: `/_next/static` ships `public, max-age=31536000, immutable` from Next. `/images/*`, `/brand/*`, and `/paw-trail-2.js` now carry the same header from `next.config.ts`, and optimized images keep a 31 day minimum TTL. Files in `/public` are not content hashed, so a replaced image needs a new file name.
 - No shadcn component is installed; the site uses no component library.
 
 ## Three biggest remaining speed wins

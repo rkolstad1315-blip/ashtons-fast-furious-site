@@ -37,11 +37,12 @@ export function SiteHeader() {
       <div className="site-header-inner mx-auto flex max-w-6xl items-center justify-between gap-4 px-4">
         <Link href="/" className="inline-flex shrink-0 items-center">
           <Image
-            src="/logo.png"
+            src={business.logoPath}
             alt={business.name}
-            width={120}
-            height={32}
-            className="h-8 w-[120px]"
+            width={56}
+            height={56}
+            loading="eager"
+            className="h-12 w-12 md:h-14 md:w-14"
           />
         </Link>
         <nav className="site-nav" aria-label="Main">
