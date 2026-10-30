@@ -3,9 +3,18 @@ const config = {
   theme: {
     extend: {
       colors: {
-        navy: "#0B1220",
+        navy: {
+          DEFAULT: "#0B1220",
+          800: "#111B30",
+          700: "#1A2744",
+        },
         // [BRAND BLUE from logo, default #1E90FF]
-        brand: "#1E90FF",
+        brand: {
+          DEFAULT: "#1E90FF",
+          50: "#EAF4FF",
+          100: "#D3E9FF",
+          600: "#0B6FD6",
+        },
         // [ACCENT, default #FF7A1A]
         accent: "#FF7A1A",
         white: "#FFFFFF",
@@ -19,6 +28,7 @@ const config = {
       },
       borderRadius: {
         card: "12px",
+        panel: "20px",
         pill: "999px",
       },
       fontFamily: {

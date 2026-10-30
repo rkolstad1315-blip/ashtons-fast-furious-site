@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/page-header";
 import { PriceBuilder, type PriceBuilderCopy } from "@/components/pricing/price-builder";
 import { formatDollars } from "@/lib/price-quote";
 import { toQuoteCatalog } from "@/lib/pricing-catalog";
@@ -137,60 +138,58 @@ export function PricingView() {
     catalog.membership && catalog.secondDogPrice != null ? pricingPage.secondDogMonthlyNote : null;
 
   return (
-    <article className="mx-auto max-w-6xl px-4 py-8 md:py-16">
-      <h1 className="m-0 max-w-3xl font-display text-4xl leading-none md:text-5xl">{page.h1}</h1>
-      <p className="m-0 mt-4 max-w-3xl text-lg leading-snug">{lead}</p>
-
-      <section className="mt-8" aria-labelledby="prices-heading">
-        <h2 id="prices-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
-          {pricingPage.pricesHeading}
-        </h2>
-        <ul className="m-0 mt-4 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
-          {cards.map((card) => (
-            <li
-              key={card.id}
-              data-highlighted={card.highlighted ? "true" : "false"}
-              className={`card rounded-card border-2 bg-white p-4 ${
-                card.highlighted ? "border-accent" : "border-slate-200"
-              }`}
-            >
-              <h3 className="m-0 font-display text-2xl leading-tight">{card.title}</h3>
-              <p className="m-0 mt-3 font-display text-5xl leading-none">{card.figure}</p>
-              {card.detail ? <p className="m-0 mt-3 text-slate-700">{card.detail}</p> : null}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {initialMinutes != null ? (
-        <section className="mt-8 max-w-xl" aria-labelledby="builder-heading">
-          <h2 id="builder-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
-            {pricingPage.builderHeading}
+    <>
+      <PageHeader title={page.h1} lede={lead} />
+      <article className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <section aria-labelledby="prices-heading">
+          <h2 id="prices-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
+            {pricingPage.pricesHeading}
           </h2>
-          <div className="mt-4">
-            <PriceBuilder
-              catalog={catalog}
-              initialMinutes={initialMinutes}
-              copy={builderCopy(monthlyDetail, secondDogMonthlyNote)}
-            />
-          </div>
-        </section>
-      ) : null}
-
-      {lines.length > 0 ? (
-        <section className="mt-12" aria-labelledby="policies-heading">
-          <h2 id="policies-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
-            {pricingPage.policiesHeading}
-          </h2>
-          <ul className="m-0 mt-6 grid list-none gap-3 p-0">
-            {lines.map((line) => (
-              <li key={line.id} className="rounded-card border border-slate-200 px-4 py-3">
-                {line.text}
+          <ul className="m-0 mt-4 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
+            {cards.map((card) => (
+              <li
+                key={card.id}
+                data-highlighted={card.highlighted ? "true" : "false"}
+                className={`panel card p-6 ${card.highlighted ? "border-2 border-accent" : ""}`}
+              >
+                <h3 className="m-0 font-display text-2xl leading-tight">{card.title}</h3>
+                <p className="m-0 mt-3 font-display text-6xl italic leading-none text-brand">{card.figure}</p>
+                {card.detail ? <p className="m-0 mt-3 text-slate-700">{card.detail}</p> : null}
               </li>
             ))}
           </ul>
         </section>
-      ) : null}
-    </article>
+
+        {initialMinutes != null ? (
+          <section className="mt-8 max-w-xl" aria-labelledby="builder-heading">
+            <h2 id="builder-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
+              {pricingPage.builderHeading}
+            </h2>
+            <div className="mt-4">
+              <PriceBuilder
+                catalog={catalog}
+                initialMinutes={initialMinutes}
+                copy={builderCopy(monthlyDetail, secondDogMonthlyNote)}
+              />
+            </div>
+          </section>
+        ) : null}
+
+        {lines.length > 0 ? (
+          <section className="mt-12" aria-labelledby="policies-heading">
+            <h2 id="policies-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
+              {pricingPage.policiesHeading}
+            </h2>
+            <ul className="m-0 mt-6 grid list-none gap-3 p-0">
+              {lines.map((line) => (
+                <li key={line.id} className="rounded-card border border-slate-200 px-4 py-3">
+                  {line.text}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+      </article>
+    </>
   );
 }

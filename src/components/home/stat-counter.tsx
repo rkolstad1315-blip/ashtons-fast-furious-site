@@ -15,8 +15,8 @@ const DURATION_MS = 700;
 function StatValue({ label, value, target }: { label: string; value: number; target: number }) {
   return (
     <div className="flex min-w-0 flex-col-reverse">
-      <dt className="text-sm font-semibold text-slate-600">{label}</dt>
-      <dd className="m-0 font-display text-5xl font-extrabold leading-none text-navy">
+      <dt className="text-sm font-semibold text-slate-200">{label}</dt>
+      <dd className="m-0 font-display text-5xl font-extrabold leading-none text-white">
         <span className="sr-only">{target}</span>
         <span aria-hidden="true" className="inline-grid tabular-nums">
           <span className="col-start-1 row-start-1">{value}</span>

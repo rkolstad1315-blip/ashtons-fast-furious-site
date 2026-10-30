@@ -91,3 +91,19 @@ Meeting the old 100 KB figure would mean leaving the React runtime behind (stati
 1. **Real hero photo under 80 KB.** The placeholder is 4.6 KB, so today's LCP is governed by the document and font requests. When the real photo lands, export it at 1280 px wide AVIF, quality 50 to 60, and check it stays under 80 KB or LCP will move.
 2. **Shorten the critical path for text LCP pages.** Every page without a hero paints its H1 at 1.82 to 2.06 s because the display font (Barlow Condensed) is on the critical path with swap. Subsetting Barlow to the characters used in headings, or using `font-display: optional` for the display face, would bring LCP under the 1.8 s target.
 3. **Decide on the JavaScript budget.** Either accept about 145 KB gzipped (125 KB Brotli) as the floor for this stack, or commission the static rebuild described above. Nothing else on the page is large enough to move the number.
+
+## Design pass (October 2026)
+
+The design pass replaced the placeholder hero and tile illustrations with the logo artwork and CSS only backgrounds, and checked mobile Lighthouse with interleaved A/B runs against `main` (5 runs each, same machine):
+
+| Route | LCP median, main | LCP median, design pass |
+| --- | --- | --- |
+| / | 2.66 s | 2.73 s |
+| /faq/ | 2.08 s | 2.46 s |
+| /mobile-dog-treadmill/ | 2.41 s | 2.43 s |
+| /about/ | 2.34 s | 2.49 s |
+
+- `/` misses the 2.5 s limit on `main` too in this environment; the change is within noise.
+- On phones the hero logo is hidden. As the LCP element it cost about 0.7 s even at 20 KB, so phones paint the H1 first and the `sizes` slot of 1px keeps its preload to the 32 px variant.
+- `next.config.ts` now serves AVIF before WebP. The logo at 375 px is 20 KB in AVIF against 39 KB in WebP.
+- The footer logo is 64 px so it reuses the header logo file and adds no request.

@@ -7,7 +7,7 @@ export function PageFrame({ children }: { children: ReactNode }) {
 
 export function PageH1({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <h1 id={id} className="m-0 max-w-4xl font-display text-4xl font-extrabold leading-none md:text-6xl">
+    <h1 id={id} className="title-bar m-0 max-w-4xl font-display text-4xl font-extrabold italic uppercase leading-[0.95] md:text-6xl">
       {children}
     </h1>
   );
@@ -41,7 +41,7 @@ export function BookCta({ href, label }: { href: string; label: string }) {
     <p className="m-0 mt-10">
       <Link
         href={href}
-        className="btn-accent inline-flex min-h-11 w-full items-center justify-center rounded-pill bg-accent px-5 font-bold text-navy no-underline sm:w-auto"
+        className="btn-accent inline-flex min-h-12 w-full items-center justify-center rounded-pill bg-accent px-6 text-lg font-bold text-navy no-underline sm:w-auto"
       >
         {label}
       </Link>

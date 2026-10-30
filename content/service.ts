@@ -26,9 +26,11 @@ if (!thirtyMinute || !isConfirmedPrice(thirtyMinute.price)) {
 }
 
 export const service = {
+  eyebrow: "Mobile dog gym",
   h1: getPage("/mobile-dog-treadmill/").h1,
   intro: `The climate controlled unit, with two dog treadmills, parks in your driveway in ${business.serviceTowns.join(", ")}, North Carolina.`,
   session: {
+    eyebrow: "Start to finish",
     heading: "What a session looks like",
     steps: [
       {
@@ -68,6 +70,8 @@ export const service = {
     heading: "Weather and heat",
     body: "The unit is climate controlled, so the workout stays out of the summer heat. The temperature cutoff is [CONFIRM]. Whether we drive in the rain is [CONFIRM].",
   },
+  detailsEyebrow: "The details",
+  detailsHeading: "Before you book",
   twoDogs: {
     heading: "Two dogs side by side",
     body: "Two dogs can run side by side on the two treadmills.",

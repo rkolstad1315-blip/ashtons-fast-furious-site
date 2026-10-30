@@ -14,6 +14,8 @@ export type AboutSection = {
 };
 
 export type AboutContent = {
+  eyebrow: string;
+  storyLabel: string;
   founding: AboutSection;
   handlers: AboutSection;
   certifications: AboutSection;
@@ -28,6 +30,8 @@ export type AboutContent = {
 };
 
 export const about: AboutContent = {
+  eyebrow: "Mobile dog gym",
+  storyLabel: "Our story",
   founding: {
     heading: "The founding story",
     body: "[OWNER STORY]",
