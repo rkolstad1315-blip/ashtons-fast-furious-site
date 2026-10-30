@@ -1,4 +1,5 @@
 import { business } from "./business";
+import { pricing } from "./pricing";
 import { getPage } from "./seo";
 import { book } from "./shell";
 import { towns } from "./towns";
@@ -32,6 +33,12 @@ if (heroH1 !== getPage("/").h1) {
 }
 
 const dash = /[\u2013\u2014]/;
+
+const sessionMinutes = pricing.sessions.map((session) => session.minutes);
+const sessionRange = `${Math.min(...sessionMinutes)} to ${Math.max(...sessionMinutes)} minutes`;
+const pricingIntro = pricing.firstSessionFree
+  ? `Sessions run ${sessionRange}. Your first session is free.`
+  : `Sessions run ${sessionRange}.`;
 
 const serviceAreaMapLabel =
   "Simplified map of Onslow and Duplin counties with Jacksonville, Richlands, and Beulaville.";
@@ -144,6 +151,7 @@ export const home = {
   pricingPreview: {
     eyebrow: "Simple pricing",
     heading: "Pricing",
+    intro: pricingIntro,
     linkLabel: "See all prices",
     linkHref: "/pricing/",
     mostPopular: "Most popular",

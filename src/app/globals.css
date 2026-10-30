@@ -876,3 +876,15 @@ html {
     display: none;
   }
 }
+
+/* Icon chip tones. The default chip is brand blue; these rotate in on card grids. */
+.icon-chip-accent {
+  background: linear-gradient(140deg, #FFA04F 0%, var(--color-accent) 100%);
+  color: var(--color-navy);
+  box-shadow: 0 10px 20px -12px rgb(255 122 26 / 0.9);
+}
+
+.icon-chip-navy {
+  background: linear-gradient(140deg, var(--color-navy-700) 0%, var(--color-navy) 100%);
+  box-shadow: 0 10px 20px -12px rgb(11 18 32 / 0.8);
+}

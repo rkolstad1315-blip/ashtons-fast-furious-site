@@ -127,8 +127,10 @@ export async function ServicePage() {
             </div>
           </div>
           {slider}
-          <p className="m-0 mt-8 flex max-w-2xl items-start gap-3 text-lg font-semibold text-navy">
-            <Icon name="check" className="mt-1 h-5 w-5 flex-none text-brand" />
+          <p className="panel m-0 mt-6 flex max-w-2xl items-center gap-4 p-5 text-lg font-semibold text-navy">
+            <span className="icon-chip icon-chip-accent h-11 w-11">
+              <Icon name="check" className="h-5 w-5" />
+            </span>
             {service.walks}
           </p>
         </div>

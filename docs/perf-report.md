@@ -104,6 +104,6 @@ The design pass replaced the placeholder hero and tile illustrations with the lo
 | /about/ | 2.34 s | 2.49 s |
 
 - `/` misses the 2.5 s limit on `main` too in this environment; the change is within noise.
-- On phones the hero logo is hidden. As the LCP element it cost about 0.7 s even at 20 KB, so phones paint the H1 first and the `sizes` slot of 1px keeps its preload to the 32 px variant.
+- On phones the hero logo is a 7 rem badge above the headline (it was hidden in the first cut). At 112 px the preload is the 256 px AVIF at 12.8 KB. It becomes the LCP element on phones, and a second interleaved A/B against the first cut (5 runs each, same machine) put the cost at nothing on `/` (2.95 s to 2.94 s median) and 0.14 s on `/about/` (2.61 s to 2.75 s median). Both pages sit above 2.5 s on this machine either way; the first cut's own numbers above were taken on a faster run. If `/about/` has to come back under the limit before real photos land, the fallback is one class change in `hero-section.tsx` and `about-page.tsx`: `hidden md:block` on the logo wrapper and a `1px` phone slot in `sizes`.
 - `next.config.ts` now serves AVIF before WebP. The logo at 375 px is 20 KB in AVIF against 39 KB in WebP.
 - The footer logo is 64 px so it reuses the header logo file and adds no request.

@@ -10,10 +10,14 @@ export function HowItWorks() {
         <SectionHeading id="how-it-works-heading" eyebrow={howItWorks.eyebrow} title={howItWorks.heading} />
         <ol className="m-0 mt-10 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-3">
           {howItWorks.steps.map((step) => (
-            <li key={step.number} className="panel card relative min-w-0 overflow-hidden p-6 md:p-7">
+            <li key={step.number} className="panel card relative min-w-0 overflow-hidden p-6 pt-8 md:p-7 md:pt-9">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-2 -top-6 font-display text-[8rem] font-extrabold italic leading-none text-brand-50"
+                className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent to-brand"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute right-4 top-3 select-none font-display text-[6rem] font-extrabold italic leading-none text-brand-50"
               >
                 {step.number}
               </span>

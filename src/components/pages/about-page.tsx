@@ -53,15 +53,16 @@ export function AboutPage() {
               <p className="m-0 mt-5 max-w-2xl text-lg leading-snug text-slate-200 md:text-xl">{unitBody}</p>
             ) : null}
           </div>
-          {/* Desktop only, for the same LCP reason as the homepage hero. */}
-          <div className="hero-logo hidden md:block md:w-full md:max-w-sm">
+          {/* A 7 rem badge above the title on phones, full size beside it on desktop,
+              the same sizing as the homepage hero so the H1 stays the LCP element. */}
+          <div className="hero-logo order-first w-28 md:order-none md:w-full md:max-w-sm">
             <Image
               src="/brand/ashtons-logo-1080.webp"
               alt={home.hero.image.alt}
               width={1080}
               height={1080}
               priority
-              sizes="(min-width: 768px) 384px, 1px"
+              sizes="(min-width: 768px) 384px, 112px"
               className="h-auto w-full drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
             />
           </div>

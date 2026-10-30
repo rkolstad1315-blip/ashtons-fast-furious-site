@@ -1,7 +1,10 @@
+import { TrustIcon } from "@/components/home/trust-icons";
 import { PageHeader } from "@/components/page-header";
 import { PriceBuilder, type PriceBuilderCopy } from "@/components/pricing/price-builder";
 import { formatDollars } from "@/lib/price-quote";
 import { toQuoteCatalog } from "@/lib/pricing-catalog";
+import { business } from "../../../content/business";
+import { home } from "../../../content/home";
 import { isPlaceholder } from "../../../content/placeholders";
 import { isConfirmedPrice, pricing } from "../../../content/pricing";
 import {
@@ -26,6 +29,16 @@ type PriceCard = {
 
 function priceCards(): PriceCard[] {
   const cards: PriceCard[] = [];
+
+  if (pricing.firstSessionFree) {
+    cards.push({
+      id: "first-session",
+      title: pricingPage.firstSessionTitle,
+      figure: pricingPage.firstSessionFigure,
+      detail: null,
+      highlighted: false,
+    });
+  }
 
   for (const session of pricing.sessions) {
     if (!isConfirmedPrice(session.price)) {
@@ -122,6 +135,11 @@ function builderCopy(monthlyDetail: string | null, secondDogMonthlyNote: string 
   };
 }
 
+// The confirmed handling facts from the homepage trust strip, insured only once confirmed.
+const included = home.trust.items.filter((item) =>
+  "whenInsured" in item && item.whenInsured ? business.insuredConfirmed : true,
+);
+
 export function PricingView() {
   const page = getPage("/pricing/");
   const lead = pricingLeadSentence();
@@ -131,6 +149,14 @@ export function PricingView() {
   const initialMinutes =
     catalog.sessions.find((session) => session.minutes === 30)?.minutes ??
     catalog.sessions[0]?.minutes;
+  // The builder only earns its place once there is something to choose. With one
+  // confirmed length, one dog price and no membership it would be three single
+  // option radio groups that always total the card above.
+  const hasChoices =
+    catalog.sessions.length > 1 ||
+    catalog.secondDogPrice != null ||
+    catalog.membership != null ||
+    catalog.militaryPercent != null;
   const monthlyDetail = catalog.membership
     ? membershipDetail(catalog.membership.sessionsPerMonth)
     : null;
@@ -141,27 +167,56 @@ export function PricingView() {
     <>
       <PageHeader title={page.h1} lede={lead} />
       <article className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <section aria-labelledby="prices-heading">
-          <h2 id="prices-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
-            {pricingPage.pricesHeading}
-          </h2>
-          <ul className="m-0 mt-4 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
-            {cards.map((card) => (
-              <li
-                key={card.id}
-                data-highlighted={card.highlighted ? "true" : "false"}
-                className={`panel card p-6 ${card.highlighted ? "border-2 border-accent" : ""}`}
-              >
-                <h3 className="m-0 font-display text-2xl leading-tight">{card.title}</h3>
-                <p className="m-0 mt-3 font-display text-6xl italic leading-none text-brand">{card.figure}</p>
-                {card.detail ? <p className="m-0 mt-3 text-slate-700">{card.detail}</p> : null}
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:items-start lg:gap-12">
+          <section aria-labelledby="prices-heading">
+            <h2 id="prices-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
+              {pricingPage.pricesHeading}
+            </h2>
+            <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2">
+              {cards.map((card) => (
+                <li key={card.id} className="card min-w-0 rounded-panel">
+                  <article
+                    data-highlighted={card.highlighted ? "true" : "false"}
+                    className={`flex h-full flex-col rounded-panel p-7 ${
+                      card.highlighted ? "speed-bg border-2 border-accent text-white" : "panel"
+                    }`}
+                  >
+                    <h3 className="m-0 font-display text-2xl leading-tight">{card.title}</h3>
+                    <p
+                      className={`m-0 mt-4 font-display text-6xl italic leading-none md:text-7xl ${
+                        card.highlighted ? "text-white" : "text-brand"
+                      }`}
+                    >
+                      {card.figure}
+                    </p>
+                    {card.detail ? (
+                      <p className={`m-0 mt-3 ${card.highlighted ? "text-slate-200" : "text-slate-700"}`}>
+                        {card.detail}
+                      </p>
+                    ) : null}
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        {initialMinutes != null ? (
-          <section className="mt-8 max-w-xl" aria-labelledby="builder-heading">
+          <section className="panel p-6 md:p-7" aria-labelledby="included-heading">
+            <h2 id="included-heading" className="m-0 font-display text-2xl leading-none md:text-3xl">
+              {pricingPage.includedHeading}
+            </h2>
+            <ul className="m-0 mt-5 grid list-none gap-4 p-0">
+              {included.map((item) => (
+                <li key={item.id} className="flex items-center gap-4">
+                  <TrustIcon id={item.id} />
+                  <span className="font-semibold">{item.label}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        {hasChoices && initialMinutes != null ? (
+          <section className="mt-12 max-w-xl" aria-labelledby="builder-heading">
             <h2 id="builder-heading" className="m-0 font-display text-3xl leading-none md:text-4xl">
               {pricingPage.builderHeading}
             </h2>
@@ -182,7 +237,7 @@ export function PricingView() {
             </h2>
             <ul className="m-0 mt-6 grid list-none gap-3 p-0">
               {lines.map((line) => (
-                <li key={line.id} className="rounded-card border border-slate-200 px-4 py-3">
+                <li key={line.id} className="panel px-5 py-4">
                   {line.text}
                 </li>
               ))}
