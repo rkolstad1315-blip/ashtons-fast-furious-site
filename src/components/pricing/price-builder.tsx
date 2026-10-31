@@ -60,6 +60,7 @@ export function PriceBuilder({
 
   return (
     <div className="grid gap-6">
+      {catalog.sessions.length > 1 ? (
       <div role="group" aria-labelledby="session-length-label" className="grid gap-3">
         <p id="session-length-label" className="m-0 font-semibold">
           {copy.lengthLegend}
@@ -83,7 +84,9 @@ export function PriceBuilder({
           );
         })}
       </div>
+      ) : null}
 
+      {dogChoices.length > 1 ? (
       <div role="group" aria-labelledby="dog-count-label" className="grid gap-3">
         <p id="dog-count-label" className="m-0 font-semibold">
           {copy.dogsLegend}
@@ -107,7 +110,9 @@ export function PriceBuilder({
           );
         })}
       </div>
+      ) : null}
 
+      {showMonthly ? (
       <div role="group" aria-labelledby="frequency-label" className="grid gap-3">
         <p id="frequency-label" className="m-0 font-semibold">
           {copy.frequencyLegend}
@@ -146,6 +151,7 @@ export function PriceBuilder({
           </label>
         ) : null}
       </div>
+      ) : null}
 
       {showMilitary ? (
         <label htmlFor="military-discount" className={optionClass(activeMilitary)}>

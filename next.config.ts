@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
     // Hero srcset widths from ticket 04. imageSizes stay below the smallest device size.
     deviceSizes: [375, 768, 1280],
     imageSizes: [32, 48, 64, 96, 128, 256],
+    // AVIF first: the logo artwork is about 40% smaller than WebP at the same quality.
+    formats: ["image/avif", "image/webp"],
     // Optimized images stay cached for 31 days; the source files below carry a year.
     minimumCacheTTL: 2678400,
   },

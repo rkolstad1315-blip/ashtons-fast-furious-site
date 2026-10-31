@@ -1,4 +1,6 @@
+import { Icon } from "@/components/icons";
 import { Link } from "@/components/link";
+import { SectionHeading } from "@/components/section-heading";
 import { faqs } from "../../../content/faqs";
 import { home } from "../../../content/home";
 
@@ -13,12 +15,19 @@ export function FaqPreview() {
   });
 
   return (
-    <section className="faq-preview border-t border-slate-200 bg-white" data-reveal aria-labelledby="faq-preview-heading">
-      <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-        <h2 id="faq-preview-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
-          {copy.heading}
-        </h2>
-        <div className="mt-8 border-t border-slate-200">
+    <section className="faq-preview bg-slate-100" data-reveal aria-labelledby="faq-preview-heading">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:py-24">
+        <div>
+          <SectionHeading id="faq-preview-heading" eyebrow={copy.eyebrow} title={copy.heading} />
+          <Link
+            href={copy.linkHref}
+            className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold text-navy no-underline hover:text-brand"
+          >
+            {copy.linkLabel}
+            <Icon name="arrow" className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="panel px-6 py-2">
           {items.map((faq) => (
             <details key={faq.id}>
               <summary>
@@ -28,12 +37,6 @@ export function FaqPreview() {
             </details>
           ))}
         </div>
-        <Link
-          href={copy.linkHref}
-          className="mt-6 inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-4"
-        >
-          {copy.linkLabel}
-        </Link>
       </div>
     </section>
   );

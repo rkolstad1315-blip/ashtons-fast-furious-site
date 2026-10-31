@@ -13,6 +13,9 @@ function assertCopy(value: string, label: string): void {
 
 export const pricingPage = {
   pricesHeading: "Prices",
+  firstSessionTitle: "First session",
+  firstSessionFigure: "Free",
+  includedHeading: "Every session includes",
   builderHeading: "Build your price",
   policiesHeading: "Policies",
   lengthLegend: "Session length",

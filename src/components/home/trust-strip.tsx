@@ -1,3 +1,4 @@
+import { SectionHeading } from "@/components/section-heading";
 import { business } from "../../../content/business";
 import { home } from "../../../content/home";
 import { shouldShowStats, stats } from "../../../content/stats";
@@ -20,16 +21,17 @@ export async function TrustStrip() {
   const StatCounter = showStats ? await loadStatCounter() : null;
 
   return (
-    <section className="bg-slate-100" data-reveal aria-labelledby="trust-heading">
-      <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
-        <h2 id="trust-heading" className="m-0 font-display text-4xl leading-none md:text-5xl">
-          {home.trust.heading}
-        </h2>
-        <ul className="m-0 mt-8 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="speed-bg" data-reveal aria-labelledby="trust-heading">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+        <SectionHeading id="trust-heading" eyebrow={home.trust.eyebrow} title={home.trust.heading} />
+        <ul className="m-0 mt-10 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item) => (
-            <li key={item.id} className="flex min-w-0 items-center gap-3">
+            <li
+              key={item.id}
+              className="flex min-w-0 items-center gap-4 rounded-panel border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+            >
               <TrustIcon id={item.id} />
-              <span className="font-semibold leading-tight">{item.label}</span>
+              <span className="font-display text-xl leading-tight text-white">{item.label}</span>
             </li>
           ))}
         </ul>

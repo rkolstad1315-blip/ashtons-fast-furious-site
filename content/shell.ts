@@ -37,3 +37,9 @@ export const legalLinks = [
   { label: "Privacy", href: "/privacy-policy/" },
   { label: "Terms", href: "/terms/" },
 ] as const;
+
+export const footerHeadings = {
+  contact: "Contact",
+  serviceAreas: "Service areas",
+  explore: "Explore",
+} as const;
