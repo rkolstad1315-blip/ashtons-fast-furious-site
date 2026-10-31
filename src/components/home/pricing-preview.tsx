@@ -81,20 +81,21 @@ function pricePreviewCards(): PriceCard[] {
 export function PricingPreview() {
   const copy = home.pricingPreview;
   const cards = pricePreviewCards();
+  // Two confirmed prices fill the row side by side instead of leaving a third slot empty.
   const gridClass =
     cards.length >= 3
       ? "m-0 mt-10 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-3"
-      : "m-0 mt-10 grid max-w-4xl list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2";
+      : "m-0 mt-10 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2";
 
   return (
     <section className="bg-white" aria-labelledby="pricing-preview-heading">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-        <SectionHeading id="pricing-preview-heading" eyebrow={copy.eyebrow} title={copy.heading} />
+        <SectionHeading id="pricing-preview-heading" eyebrow={copy.eyebrow} title={copy.heading} intro={copy.intro} />
         <ul className={gridClass}>
           {cards.map((card) => (
             <li key={card.id} className="card min-w-0 rounded-panel">
               <article
-                className={`relative flex h-full flex-col rounded-panel p-7 ${
+                className={`relative flex h-full flex-col rounded-panel p-7 md:p-8 ${
                   card.highlighted
                     ? "speed-bg border-2 border-accent text-white"
                     : "panel"
@@ -107,7 +108,7 @@ export function PricingPreview() {
                 ) : null}
                 <h3 className="m-0 font-display text-2xl leading-tight">{card.title}</h3>
                 <p
-                  className={`m-0 mt-4 font-display text-6xl italic leading-none ${
+                  className={`m-0 mt-4 font-display text-6xl italic leading-none md:text-7xl ${
                     card.highlighted ? "text-white" : "text-brand"
                   }`}
                 >

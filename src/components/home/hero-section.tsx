@@ -10,10 +10,10 @@ export function HeroSection() {
   return (
     <section className="hero speed-bg" aria-labelledby="home-hero-heading">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-6 px-4 py-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] md:gap-10 md:py-16">
-        {/* Desktop only. On a phone the artwork became the LCP element and pushed it
-            past the 2.5 s budget, so phones paint the text first; the 1px slot keeps
-            the preload down to the smallest variant there. */}
-        <div className="hero-logo hidden md:order-last md:block md:w-full md:max-w-md">
+        {/* On a phone the artwork is a 7 rem badge above the headline: small enough
+            that the H1 stays the LCP element, and the 112 px slot keeps the request
+            to the smallest variants. Desktop gets the full size logo beside the copy. */}
+        <div className="hero-logo w-28 md:order-last md:w-full md:max-w-md">
           <Image
             src={hero.image.src}
             alt={hero.image.alt}
@@ -21,7 +21,7 @@ export function HeroSection() {
             height={hero.image.height}
             priority
             fetchPriority="high"
-            sizes="(min-width: 768px) 420px, 1px"
+            sizes="(min-width: 768px) 420px, 112px"
             className="h-auto w-full drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
           />
         </div>

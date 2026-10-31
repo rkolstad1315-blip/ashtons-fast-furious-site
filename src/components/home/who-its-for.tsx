@@ -11,6 +11,9 @@ const tileIcons: Record<WhoTileId, IconName> = {
   senior: "paw",
 };
 
+// Blue, orange, navy, repeating, so six cards do not read as one blue block.
+const chipTones = ["icon-chip", "icon-chip icon-chip-accent", "icon-chip icon-chip-navy"] as const;
+
 export function WhoItsFor() {
   const { who } = home;
 
@@ -19,10 +22,10 @@ export function WhoItsFor() {
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <SectionHeading id="who-its-for-heading" eyebrow={who.eyebrow} title={who.heading} />
         <ul className="m-0 mt-10 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
-          {who.tiles.map((tile) => (
+          {who.tiles.map((tile, index) => (
             <li key={tile.id} className="card min-w-0 rounded-panel">
               <article className="panel flex h-full flex-col gap-4 p-6">
-                <span className="icon-chip">
+                <span className={chipTones[index % chipTones.length]}>
                   <Icon name={tileIcons[tile.id]} className="h-7 w-7" />
                 </span>
                 <h3 className="m-0 font-display text-2xl leading-tight">{tile.heading}</h3>
