@@ -1,3 +1,5 @@
+import { Icon } from "@/components/icons";
+import { Link } from "@/components/link";
 import { SectionHeading } from "@/components/section-heading";
 import { business } from "../../../content/business";
 import { home } from "../../../content/home";
@@ -35,6 +37,13 @@ export async function TrustStrip() {
             </li>
           ))}
         </ul>
+        <Link
+          href={home.trust.linkHref}
+          className="mt-8 inline-flex min-h-11 items-center gap-2 font-bold text-white no-underline hover:text-brand"
+        >
+          {home.trust.linkLabel}
+          <Icon name="arrow" className="h-4 w-4" />
+        </Link>
         {StatCounter && stats.sessionsRun !== null && stats.dogsServed !== null ? (
           <StatCounter
             sessionsRun={stats.sessionsRun}

@@ -45,7 +45,7 @@ export function AboutPage() {
             <p className="eyebrow">{about.eyebrow}</p>
             <h1
               id="about-heading"
-              className="m-0 mt-3 max-w-4xl font-display text-[2.4rem] font-extrabold italic uppercase leading-[0.92] text-white md:text-7xl"
+              className="m-0 mt-3 max-w-4xl text-balance font-display text-[2.4rem] font-extrabold italic leading-[0.95] text-white md:text-7xl"
             >
               {page.h1}
             </h1>
