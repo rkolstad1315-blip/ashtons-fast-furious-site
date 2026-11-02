@@ -92,6 +92,8 @@ export const home = {
   trust: {
     eyebrow: "Safety first",
     heading: "How every session is handled",
+    linkLabel: "How we keep every session safe",
+    linkHref: "/safety/",
     items: [
       { id: "climate", label: "Climate controlled" },
       { id: "supervised", label: "Supervised every minute" },

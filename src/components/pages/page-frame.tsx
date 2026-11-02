@@ -7,7 +7,7 @@ export function PageFrame({ children }: { children: ReactNode }) {
 
 export function PageH1({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <h1 id={id} className="title-bar m-0 max-w-4xl font-display text-4xl font-extrabold italic uppercase leading-[0.95] md:text-6xl">
+    <h1 id={id} className="title-bar m-0 max-w-4xl text-balance font-display text-4xl font-extrabold italic leading-[0.95] md:text-6xl">
       {children}
     </h1>
   );

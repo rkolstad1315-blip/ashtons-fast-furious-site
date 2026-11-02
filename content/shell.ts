@@ -38,6 +38,21 @@ export const legalLinks = [
   { label: "Terms", href: "/terms/" },
 ] as const;
 
+// Every public page. The header keeps the short list; the footer is where the
+// FAQ, safety and daycare alternative pages get their site wide link.
+export const footerExplore = [
+  { label: "Service", href: "/mobile-dog-treadmill/" },
+  { label: "Pricing", href: "/pricing/" },
+  { label: "Service Areas", href: "/service-areas/" },
+  { label: "FAQ", href: "/faq/" },
+  { label: "Safety", href: "/safety/" },
+  { label: "Daycare alternative", href: "/dog-daycare-alternative/" },
+  { label: "Reviews", href: "/reviews/" },
+  { label: "About", href: "/about/" },
+] as const;
+
+export const footerMilitary = { label: "Military families", href: "/military-families/" } as const;
+
 export const footerHeadings = {
   contact: "Contact",
   serviceAreas: "Service areas",
