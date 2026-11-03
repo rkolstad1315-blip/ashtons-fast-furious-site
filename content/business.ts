@@ -20,7 +20,7 @@ export type Business = {
   socialLinks: readonly SocialLink[];
   logoPath: "/brand/ashtons-logo-512.png";
   insuredStatement: "[CONFIRM INSURANCE]";
-  insuredConfirmed: false;
+  insuredConfirmed: boolean;
 };
 
 export const business: Business = {
@@ -39,5 +39,5 @@ export const business: Business = {
   socialLinks: [],
   logoPath: "/brand/ashtons-logo-512.png",
   insuredStatement: "[CONFIRM INSURANCE]",
-  insuredConfirmed: false,
+  insuredConfirmed: true,
 };
